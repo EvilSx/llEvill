@@ -1,0 +1,1836 @@
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+    enabled = true
+    spyOnMyself = true
+    public = false
+    publicItalics = true
+    privateProperties = {
+        Color = Color3.fromRGB(151, 193, 255); 
+        Font = Enum.Font.SourceSansBold;
+        TextSize = 18;
+    }
+    local StarterGui = game:GetService("StarterGui")
+    local Players = game:GetService("Players")
+    local player = Players.LocalPlayer
+    local saymsg = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
+    local getmsg = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("OnMessageDoneFiltering")
+    local instance = (_G.chatSpyInstance or 0) + 1
+    _G.chatSpyInstance = instance
+
+    local function onChatted(p,msg)
+        if _G.chatSpyInstance == instance then
+            if p==player and msg:lower():sub(1,4)=="/spy" then
+                enabled = not enabled
+                wait(0.3)
+                privateProperties.Text = "{ "..(enabled and "" or "").."}"
+                StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+            elseif enabled and (spyOnMyself==true or p~=player) then
+                msg = msg:gsub("[\n\r]",''):gsub("\t",' '):gsub("[ ]+",' ')
+                local hidden = true
+                local conn = getmsg.OnClientEvent:Connect(function(packet,channel)
+                    if packet.SpeakerUserId==p.UserId and packet.Message==msg:sub(#msg-#packet.Message+1) and (channel=="All" or (channel=="Team" and public==false and Players[packet.FromSpeaker].Team==player.Team)) then
+                        hidden = false
+                    end
+                end)
+                wait(1)
+                conn:Disconnect()
+                if hidden and enabled then
+                    if public then
+                        saymsg:FireServer((publicItalics and "/me " or '').."{SPY} [".. p.Name .."]: "..msg,"All")
+                    else
+                        privateProperties.Text = "{SPY} [".. p.Name .."]: "..msg
+                        StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+                    end
+                end
+            end
+        end
+    end
+
+    for _,p in ipairs(Players:GetPlayers()) do
+        p.Chatted:Connect(function(msg) onChatted(p,msg) end)
+    end
+    Players.PlayerAdded:Connect(function(p)
+        p.Chatted:Connect(function(msg) onChatted(p,msg) end)
+    end)
+privateProperties.Text = "{MADE BY Evil# 9593 "..(enabled and " AND " or "   ").." NoizyBoy# 8867}"
+    StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+    local chatFrame = player.PlayerGui.Chat.Frame
+    chatFrame.ChatChannelParentFrame.Visible = true
+    chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position+UDim2.new(UDim.new(),chatFrame.ChatChannelParentFrame.Size.Y)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+local prefix = "."
+local LPlayer = game.Players.LocalPlayer
+LPlayer.Chatted:Connect(function(msg)
+    msg = msg:lower()
+    if string.sub(msg,1,3) == " " then
+        msg = string.sub(msg,4)
+    end 
+    if string.sub(msg,1,1) == prefix then
+        local cmd
+        local space = string.find(msg," ")
+        if space then
+            cmd = string.sub(msg,2,space-1)
+        else
+            cmd = string.sub(msg,2)
+        end
+
+        if cmd == "print" then
+            local var = string.sub(msg,space+1)
+            print(var)
+        end
+----------- TELEPORTS SECTION       
+        if cmd == "heaven" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Teleporting to Heaven";
+                Text = "3..2..1";
+            })
+            game:GetService("TeleportService"):teleport(3552157537)
+        end
+        if cmd == "htc" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Teleporting to HTC";
+                Text = "3..2..1";
+            })
+            game:GetService("TeleportService"):Teleport(882375367)
+        end
+        if cmd == "zaros" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Teleporting to Zaros";
+                Text = "3..2..1";
+            })
+            game:GetService("TeleportService"):Teleport(2651456105)
+        end
+        if cmd == "earth" then  
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Teleporting to Earth";
+                Text = "3..2..1";
+            })
+            game:GetService("TeleportService"):Teleport(536102540)
+        end
+        if cmd == "queue" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Teleporting to Queue";
+                Text = "3..2..1";
+            })
+            game:GetService("TeleportService"):Teleport(3565304751)
+        end
+        if cmd == "namek" then 
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Teleporting to Namek";
+                Text = "3..2..1";
+            })
+            game:GetService("TeleportService"):Teleport(882399924)
+        end
+        if cmd == "space" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Teleporting to Space";
+                Text = "3..2..1";
+            })
+            game:GetService("TeleportService"):Teleport(478132461)
+        end
+        if cmd == "future" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Teleporting to Future";
+                Text = "3..2..1";
+            })
+            game:GetService("TeleportService"):Teleport(569994010)
+        end
+        if cmd == "sw" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Teleporting to Secret World";
+                Text = "3..2..1";
+            })
+            game:GetService("TeleportService"):Teleport(2046990924)
+        end
+------------------------------------------------------------------------------        
+        if cmd == "kick" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Executed!";
+                Text = "Put Dragon Throw In 'Y' AutoFire";
+            })
+            wait(.2)
+
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Press L To Respawn";
+                Text = "Press J To Go To Portal";
+            })
+
+
+
+            local plr = game:GetService("Players").LocalPlayer
+            game.Workspace:WaitForChild("Live")
+            game.Workspace.Live:WaitForChild(plr.Name)
+            local Char = plr.Character
+            local portal = game.workspace["Wormhole"]
+            local Mouse = plr:GetMouse()
+
+
+            game:GetService("RunService").RenderStepped:connect(
+            function()
+                Mouse.KeyDown:connect(function(Key)
+                    Key = Key:lower()
+                    if Key == "j" then
+                        game:GetService("TweenService"):Create(
+                        game.Players.LocalPlayer.Character.HumanoidRootPart,
+                        TweenInfo.new(1.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out),
+                        {CFrame = CFrame.new(2656.7854, 3946.00439, -2515.78467, 0.969526529, 0, -0.244986445, -0, 1, -0, 0.244986445, 0, 0.969526529)}
+                        ):Play()
+                    end
+                end)
+            end)
+
+
+            function respawnx()
+                local args = {
+                    [1] = workspace.FriendlyNPCs:FindFirstChild("Hair Stylist")
+                }
+                game:GetService("Players").LocalPlayer.Backpack.ServerTraits.ChatStart:FireServer(unpack(args))
+                wait(.3)
+                local args = {
+                    [1] = {
+                        [1] = "Yes"
+                    }
+                }
+
+                game:GetService("Players").LocalPlayer.Backpack.ServerTraits.ChatAdvance:FireServer(unpack(args))
+                wait(.3)
+                local args = {
+                    [1] = "woah"
+                }
+                game:GetService("Players").LocalPlayer.Backpack.HairScript.RemoteEvent:FireServer(unpack(args))
+            end
+
+
+            Mouse.KeyDown:connect(function(Key)
+                Key = Key:lower()
+                if Key == "l" then
+                    respawnx()
+                end
+            end)
+
+            Mouse.KeyDown:connect(function(Key)
+                Key = Key:lower()
+                if Key == "y" then
+                    wait(.2)
+                    Char["Dragon Throw"]:Activate()
+                    wait(.2)
+                    Char["Dragon Throw"]:Deactivate()
+                    Char["Dragon Throw"].Parent = plr.Backpack
+                end
+            end)
+
+            game:service'RunService'.RenderStepped:connect(function()
+                pcall(function()
+                    game:GetService("Workspace").Wormhole:Destroy()
+                    game.Players.LocalPlayer.Character.Action:Destroy()
+                end)
+            end)
+
+            game:service'RunService'.RenderStepped:connect(function()
+                pcall(function()
+                    game.Workspace.Live[plr.Name]["Dragon Throw"].Activator["Flip"]:Destroy()
+                end)
+            end)
+        end
+        if cmd == "zum" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Samonasupiritto";
+                Text = "Key = v";
+            })
+            while wait(0.5) do
+                local A_1 = "System: T҉s҉u҉m҉u҉S҉p҉i҉r҉i҉t҉ Activated "
+                local A_2 = "All"
+                local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
+                Event:FireServer(A_1, A_2)
+                break
+            end
+            getgenv().Key="v";
+            
+            local plr = game:GetService("Players").LocalPlayer
+            local Char = plr.Character
+
+            game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+                if key==getgenv().Key and not enabled then
+                    enabled=true;
+                    while enabled and wait() do
+                        Char.Blast.Weld:Destroy()
+                        Char.Blast.CFrame = Char.HumanoidRootPart.CFrame * CFrame.new(0,70,-20)
+                    end;
+                elseif key==getgenv().Key and enabled then
+                    enabled=false;
+                end;
+            end);
+        end
+        if cmd == "dc" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Dc Glitch";
+                Text = "Activated";
+                })
+       
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "How to use :";
+                Text = "Put Dragon Crush on autofire (R)";
+                })
+          
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "How Glitch?";
+                Text = "Press doble (R)";
+                })
+        
+             game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Other keys";
+                Text = "(.)To rejoin ; K go to hell";
+                })
+        
+        local Playe = game:GetService("Players").LocalPlayer
+        local Mouse = Playe:GetMouse()
+        
+        Mouse.KeyDown:connect(function(Key)
+         Key = Key:lower()
+         if Key == '.' then
+            game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+        end
+        end)
+        local mouse = game.Players.LocalPlayer:GetMouse()
+        mouse.KeyDown:connect(function(key)
+        if key == 'k' then
+            local Event = game:GetService("ReplicatedStorage").ResetChar
+            Event:FireServer()
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(14734000000000017, 100000000, 147300000000000002997)
+        end
+        end)
+        mouse.KeyDown:connect(function(key)
+            if key == "r" then
+                local plr = game.Players.LocalPlayer
+                game.Workspace.Live[plr.Name]["Dragon Throw"].Activator["Throw"]:Destroy()
+            end
+            end)
+        mouse.KeyDown:connect(function(key)
+            if key == "r" then
+                local plr = game.Players.LocalPlayer
+                game.Workspace.Live[plr.Name]["Dragon Crush"].Activator["Flip"]:Destroy()
+                game.Workspace.Live[plr.Name]["Dragon Crush"].Activator["Throw"]:Destroy()
+                game.Workspace.Live[plr.Name]["Dragon Crush"].Activator["Blocked"]:Destroy()
+                game.Workspace.Live[plr.Name]["Dragon Crush"].Activator["HitDown"]:Destroy()
+                game.Workspace.Live[plr.Name]["Dragon Crush"].Activator["BoneBreak"]:Destroy()
+            end
+            end)
+        end
+        if cmd == "vns" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "AutoVanish";
+                Text = "KEY = o ";
+                })
+            keybind = {'o'}
+
+            if not game:IsLoaded() then
+                game.Loaded:Wait(); 
+            end;
+            wait(1);
+            --{auto block}--
+            lplr=game.Players.LocalPlayer;
+            run=game:GetService('RunService');
+            mouse=lplr:GetMouse();
+            args = {
+                [1] = 0.2
+            };
+            ez=false;
+            run.RenderStepped:connect(function()
+                if ez then
+                    lplr.Backpack.ServerTraits.Vanish:FireServer(unpack(args))
+                end;
+            end)
+            mouse.KeyDown:connect(function(key)
+                if key==keybind[1] then
+                    ez=not ez;
+                    lplr.Backpack.ServerTraits.Vanish:FireServer(unpack(args))
+                end;
+            end)
+        end        
+        if cmd == "anchor" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Anchored";
+                Text = "Tipe .unanchor to Stop";
+                })
+            game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+        end
+        if cmd == "unanchor" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Anchor OFF";
+                Text = ":D";
+                })
+            game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+        end    
+        if cmd == "akb" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Anti KnockBack";
+                Text = "Activated";
+            })
+            while wait() do
+                local x = game.Players.LocalPlayer.Character.LowerHead:WaitForChild("KnockBacked")
+                if x then x:Destroy()
+                end
+            end
+        end
+        if cmd == "inv" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Activated";
+                Text = "Press q";
+            })
+            local plr = game:GetService("Players").LocalPlayer
+            local mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+                if key == "q" then
+                    local plr = game.Players.LocalPlayer
+                    game.Workspace.Live[plr.Name].Head["face"]:Destroy()
+                    wait(0.2)
+                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack["Flash Strike"])
+                    game.Players.LocalPlayer.Character["Flash Strike"].Activator.Animation:Destroy()
+                    game.Players.LocalPlayer.Character["Flash Strike"]:Activate()
+                    wait()
+                    local plr = game.Players.LocalPlayer
+                    game.Workspace.Live[plr.Name]["RebirthWings"]:Destroy()
+                    wait()
+                    local plr = game.Players.LocalPlayer
+                    game.Workspace.Live[plr.Name].HumanoidRootPart["PowerLevel"]:Destroy()
+                end
+            end)
+        end
+        if cmd == "exn" then
+            while wait(0.5) do
+                local A_1 = ":-:"
+                local A_2 = "All"
+                local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
+                Event:FireServer(A_1, A_2)
+                break
+            end
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Evil x Noizyboy CMD";
+                Text = "Press F9";
+            })
+            print("(っ◔◡◔)っ ♥ llEvilSayanll    Noizyboy ♥");
+            print(".ns = no slow")
+            print(".aq = anti queue kick")  
+            print(".kick = queue kick") 
+            print(".nbe = no bean efects/Invisible beans")  
+            print(".nvc = no vanish cooldown")  
+            print(".lock = lock ON/aimlock")
+            print(".glc = glich with (Aerial Breaker, Bone Crush, Trash, Second Bloom. Combo Barrage")
+            print(".rs = respawn")
+            print(".hr = hard reset")
+            print(".rj = rejoin")
+            print(".ag = antiglich")
+            print(".queue = goto queue")
+            print(".earth = goto earth")
+            print(".namek = goto namek")
+            print(".zaros = goto zaros")
+            print(".sw = goto secret world")
+            print(".htc = goto hiperbolic time chamber (NEED GAMEPASS)")
+            print(".future = goto future")
+            print(".heaven = goto Other World")
+            print(".iy = open INFINITY YIELD")
+            print(".bs = beruus animation")
+            print(".hl = hode/remove level")
+            print(".hw = hide/remove wings")
+            print(".toprespawn = Respawn in NORMAL TOP/HAR TOP")
+            print(".ms = melee moves spam")
+            print(".slot1 = Change to slot 1")
+            print(".slot2 = Change to slot 2")
+            print(".slot3 = Change to slot 3")
+            print(".sd = speed on")   
+            print(".sdoff = speed off")
+            print(".zum = Tzumi Spiris (Summoner Meteor)")
+            print(".gm = God Mode On Earth")
+            print(".tr = Ki Tracker")
+            print(".anchor = Leaves you harder than my dick/Te deja mas duro que mi dick xd/Te deja quieto en el lugar donde estas")
+            print(".ab = AutoBroly OP")
+            print(".unanchor = Desactiva el anchor")
+            print(".aura = Remove Aura")
+            print(".vns = AutoVanish / UI-MIU Animation")
+            print(".rsd = Real Speed 10000")
+            print(".rsdx = Real Speed 1000000 -- DONT RECOMEND")
+            print(".clicktp = Click Teleport")
+            print(".nimbus = Free Nimbus")
+            
+        end
+        if cmd == "nimbus" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Free Nimbus";
+                Text = "Fly :D";
+            })
+            if not game:IsLoaded() then
+                game.Loaded:wait();
+            end;
+            wait(3)
+            
+            lplr=game.Players.LocalPlayer;
+            char=lplr.Character;
+            
+            part=Instance.new("Part",char);
+            function NimbusFunction(lol)
+               part.Name = lol
+            end;
+            
+            NimbusFunction('Nimbus');
+        end
+        if cmd == "clicktp" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Click TP";
+                Text = "Press q";
+            })
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Hard Reset;
+                Text = "To STOP";
+            })
+            plr = game.Players.LocalPlayer
+            hum = plr.Character.HumanoidRootPart
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+                if key == "q" then
+                    if mouse.Target then
+                        hum.CFrame = CFrame.new(mouse.Hit.x, mouse.Hit.y + 5, mouse.Hit.z)
+                    end
+                end
+            end) 
+        end      
+        if cmd == "rsd" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Speed";
+                Text = "10000 zZ";
+            })
+            Expees = {10000}
+
+              while wait() do
+                function setSpeed(walkspeedSet)
+                    local plr = game:GetService"Players".LocalPlayer
+                    local serverTraits = plr.Backpack:WaitForChild'ServerTraits'
+
+                    for i,v in next, getconnections(serverTraits.Input.OnClientEvent) do
+                        local speed = ((walkspeedSet))
+                        v:Fire({speed})
+                        break
+                    end 
+                end 
+                setSpeed(Expees[1])
+            end
+        end
+        if cmd == "rsdx" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Speed";
+                Text = "1000000 :D";
+            })
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Warning";
+                Text = "I do not recommend you / No te lo recomiendo";
+            })
+            Expees = {1000000}
+
+            while wait() do
+              function setSpeed(walkspeedSet)
+                  local plr = game:GetService"Players".LocalPlayer
+                  local serverTraits = plr.Backpack:WaitForChild'ServerTraits'
+
+                  for i,v in next, getconnections(serverTraits.Input.OnClientEvent) do
+                      local speed = ((walkspeedSet))
+                      v:Fire({speed})
+                      break
+                  end 
+              end 
+              setSpeed(Expees[1])
+          end
+        end
+        if cmd == "ms" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Melee Spam";
+                Text = "Turn ON/OFF = p"
+            })
+
+            getgenv().keybindmovespam = "p" 
+
+            Move1 = "TS Molotov";
+            Move2 = "Deadly Dance";
+            Move3 = "Anger Rush";
+            Move4 = "Neo Wolf Fang Fist";
+            Move5 = "Meteor Crash";
+            Move6 = "Wolf Fang Fist";
+            Move7 = "Time Skip";
+                     
+            getgenv().movespam = false;
+            game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(x)
+                if x == getgenv().keybindmovespam and not getgenv().movespam then
+                    getgenv().movespam = true;
+                    game:GetService("RunService").RenderStepped:Connect(function()
+                        if getgenv().movespam then
+                            local plr = game.Players.LocalPlayer;
+                            for i, v in pairs(plr.Backpack:GetChildren()) do
+                                if v.Name == Move1 or v.Name == Move2 or v.Name == Move3 or
+                                    v.Name == Move4 or v.Name == Move5 or v.Name == Move6 or
+                                    v.Name == Move7 or v.Name == Move8 or v.Name == Move9 or
+                                    v.Name == Move10 then
+                                    v.Parent = plr.Character;
+                                    v:Activate();
+                                    v:Deactivate();
+                                    wait();
+                                    v.Parent = plr.Backpack;
+                                end;
+                            end;
+                        end;
+                    end);
+                elseif x == getgenv().keybindmovespam and getgenv().movespam then
+                    getgenv().movespam = false;
+                end;
+            end);
+        end      
+        if cmd == "aura" then
+            for i,v in pairs(game.Players.LocalPlayer.Character.HumanoidRootPart:GetChildren()) do 
+                if v.Name:find("Aura") or v.Name:find("Trail") or v.Name:find("SaiyanLoop") or v.Name:find("Lightning") then 
+                v:Destroy() 
+                end
+             end
+        end        
+        if cmd == "tr" then 
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Ki Tracker";
+                Text = "Running";
+            })    
+            _, Protected_by_MoonSecV2, Discord = 'discord.gg/gQEH2uZxUk'
+
+
+,nil,nil;(function() _msec=(function(e,l,_)local R=l[(0xc7-134)];local E=_[e[(0x275+-16)]][e[(0x5e2-796)]];local k=(127+-0x7b)/((324+(-53+0x11))/144)local r=(25-((455-0x11b)-149))-(-110+0x6f)local y=_[e[(0x1a8-231)]][e[(16685/0x47)]];local P=((0x101-(-75+0x107))/0x45)+(308/0x9a)local t=_[e[(0x255+-18)]][e[(876+-0x38)]]local d=(270/0x87)-(((-0x58+-4070)/198)+22)local f=((0x4aa6/(0x5606/(19723/(-79+0xf2))))/35)local h=(111/((282606/(0x1e7-286))/38))local b=(-0x29+(6336/((0xcf9c/(-79+0xd0))-268)))local D=(0x1c8/(0x8af0/((0x5d6c+-48)/0x66)))local N=(-108+((0x188-(60268/0xf4))+-34))local w=(720/((-0x41+(102129/0xb1))-272))local B=((4200/((-0x4b5c/212)+0xe7))-0x1a)local S=(-53+(-75+((0x2ad-357)-0xc4)))local j=(-38+(-0x57+(27348/(-0x74+328))))local s=(-0x5a+(147+((-770/0x46)-42)))local u=(((0xbf+(-20090/0xf5))+-53)/0xe)local g=(-101+(((-107+-0xe86)/0x55)+0x96))local U=(0x67-(0x98+((-22983+0x2cc1)/226)))local O=(0x1c4/(((-8965/0xa3)+628)-347))local C=(-0x41+(0xaa+(-0x3ff9/(0x4590/112))))local i=((((0x1cb+-63)+-0x55)-198)-0x6f)local c=((((-114+0x5)+0xf)+0x6a)/0x6)local x=((((1334-0x2c7)-0x162)-154)-113)local V=e[(0xb19-1477)];local K=_[e[(15633/0x51)]][e[(495+-0x37)]];local Y=_[(function(e)return type(e):sub(1,1)..'\101\116'end)('.**:.^%=')..'\109\101'..('\116\97'or'._^=$&^%')..e[(127380/0xdc)]];local A=_[e[(-123+0x2be)]][e[(1840/0x2)]];local L=(100-0x62)-(((-56+(0x4550-8901))/101)+-0x55)local m=(-0x74+((2013552/0xed)/0x48))-(90/0x2d)local G=_[e[(0x10f+-78)]][e[(0x590/4)]];local o=function(_,e)return _..e end local p=(0x4/1)*((-0x41+(0x122-194))+-0x1b)local Q=_[e[(-0x1a+1187)]];local a=(-0x2f+49)*(281-(36873/(0x251-352)))local J=(0x847-1095)*(0x83-(0x72e4/((10591-0x14e3)/0x17)))local W=(0xe6-((41148/0xa2)+-0x4c))local v=(52+(-0x25b2/(5983/0x1f)))*(122-0x78)local M=_[e[(-0x6a+1169)]]or _[e[(0x4a1-606)]][e[(-0x6a+1169)]];local n=((-45+(-99+(0x1513b-43179)))/168)local e=_[e[(-0x71+1408)]];local A=(function(n)local a,l=1,0x10 local _={j={},v={}}local o=-d local e=l+r while true do _[n:sub(e,(function()e=a+e return e-r end)())]=(function()o=o+d return o end)()if o==(p-d)then o=""l=L break end end local o=#n while e<o+r do _.v[l]=n:sub(e,(function()e=a+e return e-r end)())l=l+d if l%k==L then l=m A(_.j,(G((_[_.v[m]]*p)+_[_.v[d]])))end end return t(_.j)end)("..:::MoonSec::..!*%&/+^,;.:_#$}=.:;,,},+^#^&+:+*+!&=&^%$,!%**%!.!!_.}}%$$++$_#:+#!:=:^.$$=$#},#_$%$+:_::!:+*&:&*%;^+,=,_^;/*+_+_+&/_**%$%+*=!}+=.$;=;^,$}/###_#_#&_./!&+%#%&^+,:!;!&=^}$}/%,}!;=%+.__.:+.#.&$*}^}#_%#}#^#!:=_/.}.}.:*}*+!#!&=:,*&$*==*#$#/__#/#!:!.;;};.,#,&^:;*+;/=/;&$&/%_%.*.*!!,=}=,}#}^$:$*#;_=_^:$:+._.%;.;&,,,%^++#+&/:+.&;&!%^&$%}!_!;=.=+},}*$+$}*%_:_.:;:/.^;$;/,_,=^.^^+,+^/+&}&&&!;^*;*+!^!;=/}#}%$:$!#_**_+:#:&:+.*;.,=,:#!^/+_+%^*/!&;%}/+&^*&*!!*=$}=}.$$}^=;#%#*_!:..}.+;#.+,:,*,*+=+#/$//&_//%.%!%*!}!^=#=&}:=&$;#=$*_$_#:_:%...!;,,},$^#^}+:+&/;&=&^%$%:*_*:!.!%=,=/}+$#$.#:$^_;_!:^.}./;=$+,.,!^,,&++/$/&&};/%;*=*^%+!/=#=%}.%}$,$/#+_#_&:::*.;}_;^;/,/,!^%+.+!/,;.&+&%%&*#**!.===#!#}/$#$%#}#!_;:}:,.#.,$$;*,;^=^_+$++/_/%/$&!%,*}*^!#!&=:=%}.$=$^#$#/___%:.:!.,;};+;&,&^:^*+;+:/^&$&/%#%%*.*!!,=}=+}#}&$:$*#;_=_^:$:/._.%;.;!,,^}^++#+&/:/*&_%=%^*$*/!_!%=.=!},$}$+###&_:_*:;.=.;;$;/,_,%^.^!+,/}/^&#&&%:%**:!=!^=$/*}_}%$.$!#,_}_+:#^*.=.*;;,=}^$!#+#,_}^,/!&,%}&,^_*&!#!*=.}=}^$$}^*:#%_#_!:;.}.+;#.+#_,*^#+=+;/$//&_&;/+%!*#!}!+=#=/}:}+$;#=&%_$_/:_:/...!;,,}}*^#^&+:+*/;&=&^%$.!*_*%!.!&=,}}}+$#&=#:#*_;_!:^.$./;_#$,.,/^,^!++/$/&/!,/%;*=*^%,!/=#=%}:}!$_%*#+_#_&#/:*..;=;#}},/^_^%^,+!/;&}&^%#%,^$**!;==!/}$}+$_$^*##!_,:}_=.#./;:;,__^=^,+$^}/_/&&.&!%,%%^;!#!&=:!_};}!$^#$$.___^:.:%.,.*;+,#;;^:^^+;+%/^&=&/&*.&*.*/!,*&=+}$}&$=$*##*%_^:$:/_!.%;:;!,_#*^++#+&^//*&.%=%^&%*/!=!%=_=!}:$}$+}*#&_=_*:_.=.;;$;:_},%^$^!,*/}/^&#&;%:%+^_!=!^=$!}}_}&$.$/*:_}_+:#_}.:.%;;,=};^$^;+_+%/./!&,%}/=*#*,!:!%=;}=}^$$/%#_#^_._%:,.}.+;#.,,:,*^;^!+^/$//&$&%%.%!*,!=!+=#=&&^}^$;#=#^!!%!*:*+=}./;,,},+^#_*+:+*/;&=&^%$%/&_%#!.!!=,}}}+$$$&#:!#_;:=:^.=./;#;%,.;/^,+}++/$/&&:&*%;*=*^!$!/=_=%}.}!$;#}#+_#_&_}:*.;;=;,,$,/^_^%+.+!/,&}&$%#%&*:+$!_===^}$+,+!&/#.#/_,:}:+=}!#=}}^.=^=^^+$+//_/%%.^=/$*}*+!#!&^#=+};$=$^&!%#*#%/:::!.,;};+,#,&$::*:/+_/^&$&/.#,*,;,:^://&,&&&!/,*$*}&*_#:$:/._!+=$=%}!$###,}+&/:/*/:;!%^%!*/*%!%=.=!},!}$+#=#&_$_*:..=.#=%;/,},%^}^!+;/}/^&#&,,$%**;!=!_=$=+}_}^%#$!#,_}_$:#:/.::&$.,=,.^$^_+_+%/./!^,%}%;*#*^!:!%=;}=+/$$$,#_#/_._!:,_!}/;#;^,:,/^;+=+^+=:_&_&^%.%/*,!}!+!}=&}:}^$;$%#^_$_/:_:%...^;,,},+^#^&^#+*/;/^&^&!%/*_*%!$!!=,=&}+=:$&#_#*_;!_:^:^./;=;%,.,!,..;+++^/&/%&*%;*=&^!$!/!+=%=&}!$##}}+_#_&_+:*.;;=;,,$,/^_^%^^+!/=&}&+%#%&*:***^===}}$}/$_$%#.#!#%:}_&.#.+;::*,;^=,*+$+=/_//&.&!%,*}%!!#!+=:=&};$=$^#$#=___$:.:&.,:};+,#,}^:^#+;++/^&$&/%_%#*.*%!,!!=+}#}&$:$+#;#;_^_,:/._.%;.;.,,,*^++}+&^:/*&;&%%^%^*/**!%=$/+},}&$+$:#&___*_:=!.^.%;/;%,%^.^!+,,^/+/*&&%_%**#!=!^^_=/}=}%$_$!#,_}_+#!:&.:.*;.,=,^^$^,+_+%/./!&;%}%+*#$*!=!*=;}=+^/=&$&.&^_$_!:,.}:,$$;&,:,*^.+=+^/$//;.&%%:%!*,!}!+=#=&&+}*$;#=#;_$_+:_:%:$.!;,,},^^#^&+:+*/;&=&^%$%=*_*%!.!!!!}}}+$#%:&.&&%&%%*^=}=,=!=/,$,!^,+}_#:$_!.=,$&!*=*^!$/#,!+=/:/}/^&,%.}%_,:::*.;!^},}^};$$^.+.+!/,;&._.%;;,$;+,_}&=$}$}/$_%%&+%*&!*&*,!=$=;#;*,;^=#+:/,:+^/%&.&!,&;$,;^$^=/:+$/.+;&_&=#/#/_%:.:!$:=^}^}}$/#$$+_$#*.%/&&/%_%%^$,=^}^+^*+*}&$}$*#;_=%:!}*,!^_/;.;!,,;!_^+#+//:/;&;%=%^%$%&!_!&=.=:},$}$+$}*/_:_%:;:^.^;$;/._$#^.^*+,/=/+/^&&&!;^*;*!!^!/=/}#}%$:$!#_**_+:#:&:*.*;.,=,:#!^/+_+%^:/!&;%}&,^$*&!_!*!&}=}^$$=/!&#%_:_!:;.}..;#;&,:,*^.+=+,/$/+&_&%%.%!*;!}!+=#=&}:=&$;#=#;_$_^:_:%.._!;,,},,^#^++:+,/;+=&^%$%^*_*/!.!;=,!}}+$#$+#:#&_;_;:^.$./;_;&,.,%^,+=++/#/&&:&%%;*=*^!$!/!$=%}.}%$,$!#+_#_&#::*.;.*;^,=,/^#^%,.+!/,/!&+%}%&*=**!;===^}}}/$$$%#:#!_,:}:+.$.&;:;*,;^=,;+$+//$/%&_&!%,*}&+!#!&=#=*}:$=$,#$#/___%:::!..;};^,#,&^:^*+./=/^&$&/%_&/*.*!!.=}=,}#}&$:=*#;_=_;:$:^._.;;.:!,,^}^,+#++/:/.&;/=%^*$*^!_!/=.=.},=}$+###+_:_&:;:%.^;$;/,_,&^.^%+,/=/+/!&&%:%**;**!^=}=/}_=^$.$!#,_=_+:#:&._.%;;,=,^^$^/+_+%/$/!&,%},*%;*&!:!*^*^%/+/.&&%}%}%;%&*#*!=:/:;=,:,*^;#^__#*:,:::!.#./,;,#,.^=^+=/}*$;#=%=&!%!!}!}!;!&=#=!$:.%^;+:+*/;:&._;=..;%%%!.!!=,!!&^$#$&#:#/_;:=:^:&=.;_;%,.,#^,+=++/$/&&};/%;*=*^*.!/=#=%=_&*$,#}#+_$_&:::*.}=/;^,$,/,,^%+:+!/;&}&.,=%&*:***/===,}$=^%#$%#.#!_.:}:+.#..:;;*,;^=,!+$++/_/%&.&/,:*}*+!#!$=:=%};}&%.#$#/___}:.:*.,:!$^,#,&^:^++;/=/^+$.}%_%%*.*!!,!!=+}#&*$:$%#;#!_^:$:/._$^;.;!,,,!^++}+&/:^^&;%=%^*$*/!_!%=.!/},$}$+#$#&_:_*:;:!.^;$;/,_,,^.^!+,_}:;.$.=.^%.*;!=!^=$*}}_}&$.$!#,_}_+_}=/.:.&;;;!,^^$^/^*^}/./&&,%}%+*$*&!#!*=;+_}^$$$/###%_._!:,!:.+;#;&,:,*^;+=+^.;//&$&%%_%!*;!}!+^:=&}_}*$:#=#^_$_/_=:%...!;;,},+^#^/+:+*/;&=/#%$%/*_:_!.!!=,}}}+$#*/!:#*#!:=:^.$$_$$::,&++%_=:#:!:+*&:&*%;^+,=,_^;/*+_+_+&/_**%$%+*=!}&..$;=;^,$}/###_#_#&%_//&+%#%&}/.#+}.%#!;_,#$$$%#.#!*^=+;.:!.&;:;*$=$!$&#%,:+*/%&.&!.:.%;,,+,*^*^&=*$=$^#$*_%:%/*/*&!,}=};}*..^=^*+;/=_%:#:_.!./;_*_!,=}=+/!++&_&/&&%/%;=_!+!;=,$+;^,,^}^+:/_;:_:$:#.,/#%;*/!_!%/!+++_%*&$&+%=*}%&!$!$,_;$;/,_,%^.^!+,/}/+/!&&%:%*,},;,/^*;#=_}%$.$!!}%.!==*}#$_#&:#;;.&;*,/&}&$&#%#;&&%%+*#*&+^^:^}+/&&$$$/#_#%_._!#.$}%$./;&,:,*_&_!__.=:^:.,=,}!/*$!}!+=#_^,}_/^#=;^$++_::_:%..$&#$=!$^$.#;=%++/;&=&^,_;+;;,,&.!!=,}}=,!,$&#_#*_#:=:^.$:^;_;%,_,!^}+}++/#^&&:&*%:*=*;!$!$=_*%}.}!$.#}#,_##/::#*.;;=;;,$,^^_^=+.+!/,&}&,%#%^*:**!;===^}$}+$_$%#.#&_,_%:+.#.&;::},;,!^^^=:+/_/;&.&;%,*}*+%#%#=:=,};}+$^$##/$__%:.:,.,.&;+.%,&;:^*+;+^/^//&/&+%%*.*!!,!+=+}}}&$#$*$:_=_^_+:/:*.%;.;!.,^}^+^/+&+%/*/&%=/^*$*/*&!%!*=!=*$}$+###&#%_*_*.=.^;$;/,_,%^=^!+,/}/,&#&.%:%**}!=*_=$=+}_}&$.$/*:_}_+:#_;.:.%;;;&#.^$^/+_,=/./*&,/}&=*#*.!:!^=;=%}^}=*/#_#:_.#&:,.}.+.};&,:,:^;^=+^/$///$&%%.%:*,%%!+=#=&=#}*$;$:#^#=_/:_:%...!;,;^,+,,^&+#+*/;&=&^&&%/%&*%!_!!*,}}}+}&$&#=#*__:=_;.$././;%;#,!^,+}^,/#/&//&*%:*=*^!$*^=_=%=/}!$##}#+_##+:::*:/;=;,,$,/^_^%+.+!+!&}/*%#%+*:**!;===$}$}$$_$/#.#^_,:}:_.##!;:;%,;^=^^^*:,/_/%&.+$%,*=*+*%%*=:=;};!#$^#}#/___%:$=&.,;};+:.,&^_^*,;_./^/+&/&%%%%+*!*+%$=+=:}&!+$*#._=_}:$:;}}.%;.;!:%^}^^+#+,.$/*&;%=+&*$*+!_%%^&=!}=$}$_##$;_:#*_,.=.^;$..,_,:^.^^,^/}/^&#&_%:%%*;**!^!*/,}_}%$.$;#,_=_+:#_,.:.*;;;!,^^$^/+#+%/./!&,&!%+*#*&+^!#=;}=}^&*/^%#%+%/*+*.}#=^=.};}#,&^;+=+^:#;_&}&%%.%!%.+=!+=$=&}#}*$;#=$^##_/:#:%.:.!;,,},+;!^&+:+*/.&=&^%$%++:*%!.!!.!}}}+$#$&#:#*!_}=&}:../;_;%_#}%##_=#._*.::&.=;#;};$+.!$=_=%}.%*&_&%!_%_*=!}!^!:;=;:,$,/^_#&;+%_#,=#&_%#%&*:^+,,^^+$+./.#!$%#.#!_,:}%+}!$&=#;,,;^=^^.}_;:=;/:;:;_=%&*+!#!&,!+%+/+/&_#}#/___%:.:!.,_##+,#,.^:^*+;_,,$/&=^#/;,=$*+!,=}=+^!//&#&$%$:/_^:$:/._.%;.#&_,!^^}+#+&/:;%.#.&,:;#,_,%^}+}$/}_$}$+##&,*=%.*#;&.#;$;/,_.}#+=%:__*#.;;&;%:%**;;%,:+}^;+!,:$:$!#,_}%+$%:,.:.*;;}^$,$:#.=&+;/./!&,:*..;},#,;^;*}}=}^$$$/*,$/_._!:,}__:+:#/#!,!#_:;,**&$;,*%_;^^*%*$:,==#=:}:}*$;*,&:&*%/=%!,!$.!.&,},+^#$/:._!_%:%,#^=^_^;,=+++^*}}}}+$#$&#:#*!^}==%.}./;_;%$:_#,%+}++/#;^;=;+^}+/&.%__:#.$=__}!}*#}#+_#*%!.*/=$=%=_}=$.$!$&:++:/,&}&+.;.%,_,+,_,&^;+^+%/%.!#$#!_,:}!^$&_&;*#$,_^=^^+$_;#!:=;+/^%,*}*++#,+^.^+/$/%/:&%%;$_%.*%*/==:}$%}_}%$;_/_$_%%:/&&/%_%%:&:.}%,+/%/^:*}%$*#;_=*.!}*!!,=/}:}&}%./^#+#+&/::;.$:&;#;%;%;*}^===!},$}^_&.!_:._^,,#+:_;$;/,_$^$%$&_:_$_,:!^*.*;;/,,^+,/%&#*$+,&&/;*#%.!*:$:&.:.*},^&,;^$^/+__*.!_%&$%}%+*#;^}#^}_!;:^^/=$$#_#%_.=*!_!%$,!*=,}}}!$^=;+^/$//&_&%^.,!+,=%!_=#=&}:/&!+_:^+*.}%$*:;...!;,!../$.$&=_/^/;/&&^%$%/,$&#}=_:$_=;}+$#$&*/}$+=/}%,$*;}+*!^#},!^$+}++/#*&,^=%#*!+#$!}!/=_=%}.}!+,*}!+%}_.:::*.;&,_,+:&,!++_#$.$/,&}&+%#%&.:+=/;%+=#}$}/$_^:!$}%;.#+/#!}.,;:;*,;_;$/#^#;%=/:&.&!%,^.^^,*+++#+=&+&/$^$%#/___%*.!&=;=:=*,#,.^:^*+;&#$!*=+,_/^__%*!!,=}=+}#}&}%**^!#._^:$:/}+_;%/!$}!;/&_=;:,^./*&}%=%^*$=::&;}*+/$=*,^$=###&_:=/}^#+.,^^&/!=:}:$,%://}/+&#&&%:%*^&/=}:!&=/}_}%!!.:,,+^%.^+#.__.*;;,=$$.}+&!/_#&;}%.,;$&&=:_!+^!;#/,}=&$$.}+*#;#!^/%=.#^.%=_},./:$_$!+$!#//&_&%%.%!.,^!/+:.=&}:}*$:*,#^_$_/:#:%...!..$=,+^#^&,++*/;&=&^%$%/*_*%!.!!=,}}}+$#$&#_#*_;:=:^.$:^;_;%,:,!,}+}++/#++&:&*%.*=&_!$!/=_*;}.}!$;#}#}_#_/::#+.;.&$.,$,/^_^_+.+*/,/%;;%#%&*:*_!;!!=^}$=;$_$%#.#*_,:}:+.}$_;:;%,;,&^^+$+/+$..&.&*%,+&*+!#!&=:*_};}!$^#$#/___%__}=.,.!;+._,&^:^*+:.,/^/!&/&%%%*.*!!,!/=+=!}&$_$*#;_=_^:$:/:!.%;#;!,,^},,+#+&+!/*+/%=%^*$*/!_!%=}=!}.$}$,###._:_*:#.==%;$;+,_,,^.^/::/}/+&#;=%:%%*;!=^%=$=.}_}+$.$!#,$!_::#:..:.#;;,=,^,=^/+_+./.,+&,%}%+%}*&!:!.=;*.}^$$$/$$#%_._.:,#}.+;#;&;#,*^;^.+^,^//&_&%%.%!*,*+!+!^=&}#}*$;#=#^#&_/_*:%:!.!;,,},+,*^&+#+*/:&=&#%$%/*=*%^+!!=;}}}:$#$,*$#*_;:=!%.$.+;_;%$+,!^#+}+;/#/&&:/&%$*=*#!$!==_=%}.=%$,#}##_#};:::*.;:*;^,$,#^_^#+.+!/,+!&+%#%#*:/;!;===^==}/$_$##.=#_,:}:+.#.&;:;;,;,.^^+=+//_/%&.&^%,%/*+*&!&=:=*};}/$^#=#/_$_%:=:!.,.%;+$;,&^_^*+$/=/:.!&/%_%%,+*!!;=}=+/;}&$=$*#__=_^:$:^}&.%;=;!,:^}^++#+&;}/*&$%=%;*$*^!_!;*,=!}#$}&!###/_:_*:;:&}.;$;/,_#$^.^*+,/}:*&#&;%:%/*;!=!^!==$}_};$.}&#,_}_+_}:&.:.;;;.$,^^$^/^$+%/./;&,&=%+*#*&!:!*=;=^}^}/$/$&#%_=_!:,:+.+#/;&,_,*^;+=+::!//&_&%^*%!*;!}!./==&}:}**+#=#,_$#^=#:%:!.!_#,},+^#,+:.+*+!&=+&%$%/*_%/+;!!!!}}!#$#$&#:$&!,:=_!.$.:;_;%,.,!,/+}+#/#/$&:&&%;*=/^!$!:=_=;}.},$,$/%:_#_.::}%.;.!;^,},/^=_++.+!/,,=&+%$%&%#^%!;!+=^!=}/$_$%#.!/_,_&:+.}.&;#;*,}:+^^^*+/:,/%&:&!%#*}*.+=!&=:=*//$=$,#$#/*,_%:}:!.:;};+,#;+^=^*+}/=+.&$&/%_&/*.*!!}=}%:}#}&$:}&#;_=_}:$$!._.%;..%,,^}^}+#,^/:/*&;/*%^*$*}!_&/=.=!},$}$+###:_:__:;:*.^;$;/,_,;^.^^+,++/+&#&&%:%^*;**!^===/=*}%$.$/#,*:_+:$:&.=.*;#$%,^^$^/_,+%/:/!&,;:%+%**&!$!*=;}==;*/$/$*#%##_!:,.}:,;#;&;*,*.$+=+^/$+^&_&%&*%!*_!}!+=#!+}:}*}*#==*_$_/:__/...!.*,},^^#^&+:+*/;&=&$%$%}*_*/!.!!=,}}}_$#$.#:#;_;:=:^.$..;_;/,.,%^,+}++/#/,&:&^%;*=*^**!/=_=%}.&#$,#=#+_#%+:::+.;;=;^,$,/^_;#+.+//,&=&+%#%&%!,^!;!&=^/#}/$#$%#:#!__!*:+.#.&}.;*,.^=^:_!+//_/%:!&!%;*}/+!#!&===*%!$=!,#$$^*%_%:}:!_!;};+,#,&,}^*+;/=/,&$&/%_&/^:*!!#=}%_}#}&$:$,}/_=_#:$:.._.&;.;*,,^}$*+#+&/:/&&;%=%^*$+=!_!,=.=%},$=$+$!*^_:_*:;!*.^;};/;$#&^.^++,^:/+&#&&&#&:*;*+!^!==/}_}%=.$!#,#/_+_%:&_!.*.:,=,^,+^/.!+%/./!/.%}%+%+*&/;!*=;}==;$$$/$+#%#;_!:,.}:,;#;&;+,*.,+=+^/$//&_&%&*%!%%!}!,=#=&}:}*$}#=#}_$_/:_:%...!;#,},+^#^++:+*/;&=&_%$%+*_*/!.%!**}}}_$#$;#:#&_;#*_..$.#;__,,.,!^,,!++/#/#&:+}%;*=*^*=!/=_=#}.*:$,#}#+#}_&:::#.;:,;^,$,/^_^%+.+;/,/.&+%}%&*:**!;!+=^=+}/$$$%#_!;_,_+:+:/.&;:;*,};_^^^++//_/%&:&!%;*}*+,;!&=:=*}=$=$^#$}/!$_%_%:!.$;}.%,#,&^:^*^&/=/^&$&,%_&/*.*!*&=}%:}#}&$:}&#;_=#&:$$$._.%;..%,,^},&+#.!/:/*&;/*%^*$%&!_&*=.=!},$}$+###=_:#!:;:*.^.$;/,_,$^.^}+,+:/+/}&&%:%$*;&+!^=$=/!_}%$.$##,#:_+_*:&:::!;;;:,^,$^/^,+%/=+#&,&:%+%%*&!_!*=.}=}^/.$/#_#%#*_!:,.}:+_;;&;+,*;.+=^%/$//&_&%&%%!%%!}!^=#*&}:}*}*#=##_$__:_:%...!.%,},+^#^^+:^&/;&=/%%$+.*_*%!.*%=,}}=%$#};#:#*_;#*:^.$:%;_:%,.,!^,,!++/#+%&:,!%;*=*^!$!/=_=}}.}=$,$!#+##_&:::#.;.$;^;.,/._,:+.+_/,/^&+/!%&*#+.!;!_=^=^}/$_$%$.!*_,_.:+_$.&.^;*,;^=^^^^+/+^/%&:&!/,*}*+*+!&!!=*}_$=};#$#/#^_%$}:!.,;}.,,#,&,^^*.&/=/^&$/^%_%%%^*!&+=}=+}#=+$:$*$^_=#%:$:/._.%;.;!;%^},&+#++/:/*&;%=%=*$*=!_!/=.*!},$}$=####_:$.:;.=:%;$.!,_,%^.^%+,^!^_&#/!%:+^*;!=!^!==/}_=!$.}:#,_}_+_}:&.::!;;_%,^^$^/^$+%/.+!&,&,%+*#*&!:!*=;=#}^}$$/#$#%#._!:,::.+.:;&;,,*^},_+^+://&$&%%:%!*;!}!+^;=&}:}*$$#=#^_$#/#$:%:+.!:;,};%^#^&+:+*+%&=/%%$%+*_&%!.!!!*}}}:$#!,#:#*_;:=_!.$.^;_;&,.,!^,+}++/#//&:&*%;*=");local t=((-0x625/13)+0x82)local l=112 local _=d;local e={}e={[(0x57-86)]=function()local d,e,o,r=y(A,_,_+P);_=_+v;l=(l+(t*v))%n;return(((r+l-(t)+a*(v*k))%a)*((k*J)^k))+(((o+l-(t*k)+a*(k^P))%n)*(a*n))+(((e+l-(t*P)+J)%n)*a)+((d+l-(t*v)+J)%n);end,[(0x17-21)]=function(e,e,e)local e=y(A,_,_);_=_+r;l=(l+(t))%n;return((e+l-(t)+J)%a);end,[(0x294/220)]=function()local o,e=y(A,_,_+k);l=(l+(t*k))%n;_=_+k;return(((e+l-(t)+a*(k*v))%a)*n)+((o+l-(t*k)+n*(k^P))%a);end,[(0x5d-89)]=function(l,e,_)if _ then local e=(l/k^(e-d))%k^((_-r)-(e-d)+r);return e-e%d;else local e=k^(e-r);return(l%(e+e)>=e)and d or m;end;end,[(-0x5f+100)]=function()local _=e[(24-0x17)]();local l=e[(54/0x36)]();local x=d;local o=(e[(-47+0x33)](l,r,p+v)*(k^(p*k)))+_;local _=e[(37-0x21)](l,21,31);local e=((-d)^e[(51+-0x2f)](l,32));if(_==m)then if(o==L)then return e*m;else _=r;x=L;end;elseif(_==(a*(k^P))-r)then return(o==m)and(e*(r/L))or(e*(m/L));end;return E(e,_-((n*(v))-d))*(x+(o/(k^W)));end,[(1476/0xf6)]=function(o,x,x)local x;if(not o)then o=e[(51/(11016/0xd8))]();if(o==m)then return'';end;end;x=K(A,_,_+o-d);_=_+o;local e=''for _=r,#x do e=V(e,G((y(K(x,_,_))+l)%n))l=(l+t)%a end return e;end}local function m(...)return{...},Q('#',...)end local function K()local c={};local o={};local _={};local i={c,o,nil,_};local l={}local w=(0x1166/131)local n={[(68+-0x40)]=(function(_)return not(#_==e[(-0x32+(187-0x87))]())end),[(70-0x45)]=(function(_)return e[(0x5b-(-43+0x81))]()end),[(0/0x7)]=(function(_)return e[((-0xae+73)+0x6b)]()end),[((-0x7c+799)/225)]=(function(_)local o=e[((708+-0x48)/106)]()local _=''local e=1 for l=1,#o do e=(e+w)%n _=V(_,G((y(o:sub(l,l))+e)%a))end return _ end)};for e=r,e[(0xfa/(0x117+-29))]()do o[e-r]=K();end;local _=e[(0x55+-84)]()for _=1,_ do local e=e[(0x5e-(132+-0x28))]();local o;local e=n[e%(158-0x78)];l[_]=e and e({});end;for i=1,e[((-2821/0x5b)+0x20)]()do local _=e[(0x4a-72)]();if(e[(0x3c0/240)](_,d,r)==L)then local a=e[(-57+0x3d)](_,k,P);local o=e[(-0x7e+130)](_,v,k+v);local _={e[(105/0x23)](),e[((47085/0x49)/215)](),nil,nil};local n={[(-0x78+(-83+0xcb))]=function()_[h]=e[(-39+0x2a)]();_[S]=e[(0x23-32)]();end,[(129/0x81)]=function()_[h]=e[(0xf8/248)]();end,[(0xc2/97)]=function()_[b]=e[(-118+0x77)]()-(k^p)end,[(91-0x58)]=function()_[b]=e[(0x6e-109)]()-(k^p)_[u]=e[(-68+0x47)]();end};n[a]();if(e[(212/0x35)](o,r,d)==r)then _[x]=l[_[x]]end if(e[(196/0x31)](o,k,k)==d)then _[f]=l[_[f]]end if(e[(0x3d+(-0x53+26))](o,P,P)==r)then _[g]=l[_[u]]end c[i]=_;end end;i[3]=e[(-0x25+39)]();return i;end;local function L(e,v,t)local _=e[k];local a=e[P];local e=e[d];return(function(...)local m=m local G={};local A={...};local l={};local n=e;local p=_;local a=a;local e=d e*=-1 local P=e;local _=d;local y={};local J=Q('#',...)-r;for e=0,J do if(e>=a)then G[e-a]=A[e+r];else l[e]=A[e+d];end;end;local e=J-a+d local e;local a;while true do e=n[_];a=e[(-0x3b+60)];o=(5556210)while(2072/0x25)>=a do o-= o o=(7209808)while(0xedf/141)>=a do o-= o o=(2928744)while(0xa5c/204)>=a do o-= o o=(4052751)while a<=(0xa8/28)do o-= o o=(13624960)while a<=(0x1ee/247)do o-= o o=(9499264)while(0x71-113)>=a do o-= o local e={l,e};e[d][e[k][x]]=e[k][B]+e[k][f];break;end while 3158==(o)/((0x17be-3070))do o=(16255935)while(0x6e-109)<a do o-= o l[e[C]]();break end while(o)/((0x1f85-4070))==4065 do l[e[C]]=t[e[h]];break end;break;end break;end while(o)/((-0x7d+(8176-0x1033)))==3490 do o=(2262560)while a<=(0x3e4/249)do o-= o o=(3813251)while a>(65-0x3e)do o-= o local o=l[e[S]];if not o then _=_+r;else l[e[i]]=o;_=e[b];end;break end while(o)/((7451-0xe9a))==1027 do l[e[i]]=l[e[b]]%e[B];break end;break;end while 1790==(o)/((0x47e70/233))do o=(2651110)while(0x33e/166)<a do o-= o local a;local o;l[e[C]]=(e[w]~=0);_=_+d;e=n[_];l[e[c]]=l[e[N]];_=_+d;e=n[_];l[e[x]]=t[e[b]];_=_+d;e=n[_];o=e[c]l[o]=l[o](l[o+r])_=_+d;e=n[_];a=l[e[S]];if not a then _=_+r;else l[e[i]]=a;_=e[f];end;break end while 2191==(o)/((-62+(-23+0x50f)))do local a;local o;l[e[C]]=t[e[D]];_=_+d;e=n[_];l[e[U]]=t[e[D]];_=_+d;e=n[_];l[e[i]]=e[D];_=_+d;e=n[_];l[e[c]]=e[N];_=_+d;e=n[_];l[e[O]]=e[f];_=_+d;e=n[_];o=e[C]l[o]=l[o](M(l,o+d,e[N]))_=_+d;e=n[_];l[e[i]]=l[e[b]][l[e[s]]];_=_+d;e=n[_];o=e[c]l[o]=l[o](l[o+r])_=_+d;e=n[_];a=l[e[g]];if not a then _=_+r;else l[e[x]]=a;_=e[f];end;break end;break;end break;end break;end while 3763==(o)/(((172427-0x150fb)/80))do o=(1689792)while a<=(0x34e/(-66+0xa0))do o-= o o=(39672)while(-0x7f+134)>=a do o-= o local _=e[O];local o=l[e[b]];l[_+1]=o;l[_]=o[e[s]];break;end while 18==(o)/(((33721200/0x44)/0xe1))do o=(1978100)while a>(0x108/33)do o-= o local o;local a;l[e[x]]=t[e[w]];_=_+d;e=n[_];l[e[U]]=e[w];_=_+d;e=n[_];l[e[O]]=e[h];_=_+d;e=n[_];a=e[h];o=l[a]for e=a+1,e[S]do o=o..l[e];end;l[e[U]]=o;_=_+d;e=n[_];if l[e[c]]then _=_+d;else _=e[f];end;break end while(o)/((2653+(-66+0x21)))==755 do local a;local o;l[e[x]]=t[e[w]];_=_+d;e=n[_];l[e[i]]=t[e[w]];_=_+d;e=n[_];l[e[i]]=e[N];_=_+d;e=n[_];l[e[c]]=e[D];_=_+d;e=n[_];l[e[c]]=e[N];_=_+d;e=n[_];o=e[O]l[o]=l[o](M(l,o+d,e[f]))_=_+d;e=n[_];l[e[C]]=l[e[b]][l[e[j]]];_=_+d;e=n[_];o=e[x]l[o]=l[o](l[o+r])_=_+d;e=n[_];a=l[e[u]];if not a then _=_+r;else l[e[x]]=a;_=e[w];end;break end;break;end break;end while(o)/((45359/0x43))==2496 do o=(4333895)while(119+-0x6c)>=a do o-= o o=(4200273)while a>(0x43+-57)do o-= o l[e[O]]=v[e[D]];_=_+d;e=n[_];l[e[U]]=#l[e[f]];_=_+d;e=n[_];v[e[f]]=l[e[O]];_=_+d;e=n[_];l[e[c]]=v[e[D]];_=_+d;e=n[_];l[e[x]]=#l[e[f]];_=_+d;e=n[_];v[e[h]]=l[e[x]];_=_+d;e=n[_];do return end;break end while 1089==(o)/((0x1e4a-3897))do l[e[O]]=#l[e[D]];break end;break;end while 1139==(o)/((7639-0xefa))do o=(2102880)while a>((0xf2-161)+-0x45)do o-= o local _=e[O]l[_]=l[_](M(l,_+d,e[D]))break end while(o)/((2104-0x445))==2080 do l[e[O]]={};break end;break;end break;end break;end break;end while(o)/((4269-0x887))==1404 do o=(4474512)while a<=(71-0x33)do o-= o o=(5720865)while a<=(93-0x4d)do o-= o o=(1838660)while(52+(-0x29+3))>=a do o-= o local o=e[f];local _=l[o]for e=o+1,e[u]do _=_..l[e];end;l[e[x]]=_;break;end while 1490==(o)/((2565-0x533))do o=(1000246)while a>(0xb5e/194)do o-= o l[e[c]][l[e[h]]]=l[e[u]];break end while 1054==(o)/((1922-0x3cd))do l[e[U]][e[h]]=l[e[j]];break end;break;end break;end while(o)/((7082-0xdff))==1635 do o=(28800)while(0xb64/162)>=a do o-= o o=(4228817)while(67-0x32)<a do o-= o if l[e[U]]then _=_+d;else _=e[b];end;break end while 3869==(o)/((1157+-0x40))do local n=e[C];local a=e[j];local o=n+2 local n={l[n](l[n+1],l[o])};for e=1,a do l[o+e]=n[e];end;local n=n[1]if n then l[o]=n _=e[D];else _=_+d;end;break end;break;end while 900==(o)/((0x13a0/157))do o=(9044474)while a>(0x889/115)do o-= o do return end;break end while(o)/((749990/0xb9))==2231 do local o;l[e[c]]=t[e[h]];_=_+d;e=n[_];l[e[U]]=e[N];_=_+d;e=n[_];l[e[c]]=e[f];_=_+d;e=n[_];l[e[i]]=e[N];_=_+d;e=n[_];o=e[U]l[o]=l[o](M(l,o+d,e[b]))_=_+d;e=n[_];o=e[O]l[o]=l[o](M(l,o+d,e[N]))break end;break;end break;end break;end while 1288==(o)/((0xdb1+-31))do o=(165850)while((194+-0x61)-0x4a)>=a do o-= o o=(468160)while a<=(0x18f/19)do o-= o l[e[U]]=l[e[D]]-l[e[B]];break;end while 836==(o)/((1230-0x29e))do o=(9247203)while(440/0x14)<a do o-= o local o;local a;local x,h;local c;local o;l[e[C]]=t[e[f]];_=_+d;e=n[_];o=e[O];c=l[e[b]];l[o+1]=c;l[o]=c[e[S]];_=_+d;e=n[_];o=e[U]x,h=m(l[o](l[o+r]))P=h+o-d a=0;for e=o,P do a=a+d;l[e]=x[a];end;_=_+d;e=n[_];o=e[i]x={l[o](M(l,o+1,P))};a=0;for e=o,e[S]do a=a+d;l[e]=x[a];end _=_+d;e=n[_];_=e[f];break end while(o)/((0x1e38-3929))==2429 do local e=e[c]l[e]=l[e](M(l,e+d,P))break end;break;end break;end while(o)/((28830/0xba))==1070 do o=(5122549)while a<=(4025/(406-0xf5))do o-= o o=(594054)while a>(83-0x3b)do o-= o local a;local k,O;local r;local o;l[e[U]]=t[e[h]];_=_+d;e=n[_];o=e[U];r=l[e[h]];l[o+1]=r;l[o]=r[e[j]];_=_+d;e=n[_];l[e[i]]=t[e[f]];_=_+d;e=n[_];l[e[x]]=e[b];_=_+d;e=n[_];l[e[c]]=e[w];_=_+d;e=n[_];l[e[x]]=e[D];_=_+d;e=n[_];o=e[i]l[o]=l[o](M(l,o+d,e[b]))_=_+d;e=n[_];o=e[C]k,O=m(l[o](M(l,o+1,e[h])))P=O+o-1 a=0;for e=o,P do a=a+d;l[e]=k[a];end;_=_+d;e=n[_];o=e[c]l[o]=l[o](M(l,o+d,P))_=_+d;e=n[_];o=e[x]l[o]=l[o]()break end while 193==(o)/(((-0x21+526371)/0xab))do l[e[O]][e[w]]=e[g];break end;break;end while 3511==(o)/((0x356e2/150))do o=(10372452)while(1404/0x36)<a do o-= o l[e[i]]=l[e[w]]-l[e[s]];break end while 3812==(o)/((5461-0xab4))do local _=e[O];local o=l[e[b]];l[_+1]=o;l[_]=o[e[g]];break end;break;end break;end break;end break;end break;end while 2228==(o)/((-0x68+3340))do o=(2042118)while(0x802/50)>=a do o-= o o=(2870476)while a<=(0xee0/112)do o-= o o=(5439456)while a<=(156-0x7e)do o-= o o=(3103613)while(0xaa-142)>=a do o-= o local x=p[e[w]];local a;local o={};a=Y({},{__index=function(_,e)local e=o[e];return e[1][e[2]];end,__newindex=function(l,e,_)local e=o[e]e[1][e[2]]=_;end;});for d=1,e[S]do _=_+r;local e=n[_];if e[(0x56/86)]==108 then o[d-1]={l,e[b]};else o[d-1]={v,e[b]};end;y[#y+1]=o;end;l[e[c]]=L(x,a,t);break;end while 887==(o)/((0x1b95-3562))do o=(7781680)while((0x27f1-5150)/0xaf)<a do o-= o if l[e[x]]then _=_+d;else _=e[w];end;break end while 2110==(o)/((-0x12+3706))do local _=e[i]l[_](M(l,_+r,e[b]))break end;break;end break;end while(o)/((0x37268/151))==3636 do o=(305578)while(0xbd-157)>=a do o-= o o=(10578726)while a>(128+-0x61)do o-= o l[e[c]]=(e[f]~=0);_=_+r;break end while(o)/((6976-0xdd2))==3077 do local o=e[i];local a=e[S];local n=o+2 local o={l[o](l[o+1],l[n])};for e=1,a do l[n+e]=o[e];end;local o=o[1]if o then l[n]=o _=e[h];else _=_+d;end;break end;break;end while 949==(o)/((7728/0x18))do o=(535360)while((636405/0x91)/0x85)<a do o-= o local a;local o;l[e[x]][e[f]]=l[e[j]];_=_+d;e=n[_];o=e[i]l[o](M(l,o+r,e[h]))_=_+d;e=n[_];o=e[U];a=l[e[w]];l[o+1]=a;l[o]=a[e[j]];_=_+d;e=n[_];o=e[C]l[o](l[o+r])_=_+d;e=n[_];do return end;break end while 478==(o)/((0x931-1233))do local x=p[e[h]];local a;local o={};a=Y({},{__index=function(_,e)local e=o[e];return e[1][e[2]];end,__newindex=function(l,e,_)local e=o[e]e[1][e[2]]=_;end;});for d=1,e[S]do _=_+r;local e=n[_];if e[(0xc4/196)]==108 then o[d-1]={l,e[f]};else o[d-1]={v,e[D]};end;y[#y+1]=o;end;l[e[i]]=L(x,a,t);break end;break;end break;end break;end while 3307==(o)/((84196/(-107+0xcc)))do o=(6046488)while(-99+0x88)>=a do o-= o o=(399408)while a<=(80+-0x2d)do o-= o l[e[i]]=l[e[h]]%e[s];break;end while 314==(o)/((0xa18-1312))do o=(1910304)while a>(-41+0x4d)do o-= o v[e[b]]=l[e[c]];break end while 594==(o)/((6518-0xce6))do if(l[e[c]]==e[s])then _=_+r;else _=e[f];end;break end;break;end break;end while 2408==(o)/((0x13ff-2608))do o=(11099285)while(0x57+(-0x45+21))>=a do o-= o o=(9173160)while(0x90e/61)<a do o-= o local o=e[i];local d=l[o]local n=l[o+2];if(n>0)then if(d>l[o+1])then _=e[h];else l[o+3]=d;end elseif(d<l[o+1])then _=e[w];else l[o+3]=d;end break end while 2763==(o)/((6755-(6930-0xda7)))do local o;l[e[c]]=t[e[b]];_=_+d;e=n[_];l[e[i]]=e[N];_=_+d;e=n[_];l[e[U]]=e[D];_=_+d;e=n[_];l[e[x]]=e[w];_=_+d;e=n[_];o=e[x]l[o]=l[o](M(l,o+d,e[w]))_=_+d;e=n[_];l[e[c]][e[w]]=l[e[B]];break end;break;end while(o)/((-0x5f+3330))==3431 do o=(404800)while(440/0xb)<a do o-= o local c;local i,b;local a;local o;l[e[U]]=l[e[h]][e[B]];_=_+d;e=n[_];l[e[x]]=l[e[N]][e[B]];_=_+d;e=n[_];o=e[U];a=l[e[N]];l[o+1]=a;l[o]=a[e[j]];_=_+d;e=n[_];o=e[O]l[o]=l[o](l[o+r])_=_+d;e=n[_];l[e[x]]=t[e[f]];_=_+d;e=n[_];l[e[O]]=l[e[w]][e[S]];_=_+d;e=n[_];o=e[C];a=l[e[w]];l[o+1]=a;l[o]=a[e[j]];_=_+d;e=n[_];o=e[x]i,b=m(l[o](l[o+r]))P=b+o-d c=0;for e=o,P do c=c+d;l[e]=i[c];end;_=_+d;e=n[_];o=e[O]l[o]=l[o](M(l,o+d,P))_=_+d;e=n[_];if not l[e[O]]then _=_+r;else _=e[D];end;break end while 704==(o)/((0x74cc/52))do l[e[x]][l[e[h]]]=l[e[j]];break end;break;end break;end break;end break;end while 702==(o)/((5934-(-0x7e+3151)))do o=(4994173)while a<=(0x1a40/140)do o-= o o=(7268380)while a<=(0x8a+-94)do o-= o o=(2113990)while(0x135c/118)>=a do o-= o l[e[c]]=(e[N]~=0);break;end while 895==(o)/((0x93a0/16))do o=(92274)while a>(0x91-102)do o-= o local a;local o;l[e[U]][e[w]]=l[e[B]];_=_+d;e=n[_];o=e[O]l[o](M(l,o+r,e[f]))_=_+d;e=n[_];o=e[x];a=l[e[h]];l[o+1]=a;l[o]=a[e[j]];_=_+d;e=n[_];l[e[i]]={};_=_+d;e=n[_];l[e[i]]=t[e[b]];_=_+d;e=n[_];l[e[C]]=e[N];_=_+d;e=n[_];l[e[U]]=e[b];_=_+d;e=n[_];l[e[U]]=e[w];_=_+d;e=n[_];o=e[O]l[o]=l[o](M(l,o+d,e[D]))_=_+d;e=n[_];l[e[c]][e[b]]=l[e[g]];break end while(o)/((-0x11+524))==182 do local o;local a;local i,f;local k;local o;l[e[x]]=t[e[w]];_=_+d;e=n[_];l[e[C]]=t[e[h]];_=_+d;e=n[_];l[e[x]]=l[e[D]][e[s]];_=_+d;e=n[_];l[e[O]]=l[e[w]][e[B]];_=_+d;e=n[_];o=e[x];k=l[e[b]];l[o+1]=k;l[o]=k[e[g]];_=_+d;e=n[_];o=e[c]i,f=m(l[o](l[o+r]))P=f+o-d a=0;for e=o,P do a=a+d;l[e]=i[a];end;_=_+d;e=n[_];o=e[U]i={l[o](M(l,o+1,P))};a=0;for e=o,e[u]do a=a+d;l[e]=i[a];end _=_+d;e=n[_];_=e[N];break end;break;end break;end while 1883==(o)/((7752-0xf34))do o=(3170330)while a<=(0x64a/35)do o-= o o=(1204428)while(0x2625/217)<a do o-= o v[e[N]]=l[e[O]];break end while(o)/((0x4037c/76))==348 do local o;l[e[c]]=t[e[h]];_=_+d;e=n[_];l[e[x]]=e[b];_=_+d;e=n[_];l[e[x]]=e[b];_=_+d;e=n[_];l[e[i]]=e[h];_=_+d;e=n[_];o=e[U]l[o]=l[o](M(l,o+d,e[D]))_=_+d;e=n[_];o=e[O]l[o]=l[o](M(l,o+d,e[N]))_=_+d;e=n[_];if not l[e[c]]then _=_+r;else _=e[w];end;break end;break;end while 1097==(o)/((2912+-0x16))do o=(12889667)while(68+-0x15)<a do o-= o l[e[x]]=l[e[f]][l[e[s]]];break end while 3269==(o)/((-0x3f+4006))do if(e[c]<l[e[g]])then _=e[b];else _=_+r;end;break end;break;end break;end break;end while(o)/((0x15cf-2810))==1801 do o=(8594688)while a<=(149-0x61)do o-= o o=(6515978)while(200/0x4)>=a do o-= o o=(39284)while a>(10927/(0x153+-116))do o-= o l[e[C]]=l[e[D]][e[B]];break end while(o)/((0x438d8/162))==23 do if(e[U]<l[e[u]])then _=e[w];else _=_+r;end;break end;break;end while(o)/((0xe4e-1851))==3598 do o=(903353)while(226-0xaf)<a do o-= o l[e[i]]();break end while(o)/((4132-0x851))==451 do if(l[e[U]]==l[e[u]])then _=_+r;else _=e[D];end;break end;break;end break;end while(o)/((-78+(0x13ef-2593)))==3534 do o=(7791312)while(5616/0x68)>=a do o-= o o=(11123472)while(210-0x9d)<a do o-= o local o=l[e[g]];if not o then _=_+r;else l[e[O]]=o;_=e[b];end;break end while 3538==(o)/(((0x320b-6459)-0xc88))do l[e[i]][e[h]]=e[S];break end;break;end while 3034==(o)/((0x143a-2610))do o=(13037252)while a>(0xa0-105)do o-= o local o;l[e[U]]=l[e[w]][e[j]];_=_+d;e=n[_];l[e[i]]();_=_+d;e=n[_];l[e[i]]=v[e[b]];_=_+d;e=n[_];l[e[i]]=t[e[N]];_=_+d;e=n[_];l[e[O]]=l[e[w]][e[B]];_=_+d;e=n[_];l[e[O]]=l[e[f]][e[B]];_=_+d;e=n[_];l[e[C]]=l[e[h]][e[S]];_=_+d;e=n[_];o=e[x]l[o](l[o+r])_=_+d;e=n[_];l[e[C]]=v[e[h]];_=_+d;e=n[_];l[e[c]]=t[e[b]];_=_+d;e=n[_];l[e[U]]=l[e[w]][e[u]];_=_+d;e=n[_];l[e[i]]=l[e[h]][e[B]];_=_+d;e=n[_];o=e[U]l[o](l[o+r])_=_+d;e=n[_];l[e[O]]=v[e[w]];_=_+d;e=n[_];l[e[c]]=t[e[f]];_=_+d;e=n[_];l[e[O]]=l[e[w]][e[u]];_=_+d;e=n[_];o=e[c]l[o](l[o+r])_=_+d;e=n[_];l[e[x]]=v[e[f]];_=_+d;e=n[_];l[e[C]]=t[e[b]];_=_+d;e=n[_];l[e[i]]=l[e[f]][e[S]];_=_+d;e=n[_];l[e[U]]=l[e[h]][e[u]];_=_+d;e=n[_];l[e[U]]=l[e[w]][e[s]];_=_+d;e=n[_];l[e[U]]=l[e[w]][e[j]];_=_+d;e=n[_];o=e[C]l[o](l[o+r])_=_+d;e=n[_];_=e[N];break end while 3412==(o)/((-0x61+3918))do local o;l[e[O]]=t[e[h]];_=_+d;e=n[_];l[e[x]]=t[e[b]];_=_+d;e=n[_];l[e[i]]=e[b];_=_+d;e=n[_];l[e[C]]=e[b];_=_+d;e=n[_];l[e[c]]=e[b];_=_+d;e=n[_];o=e[c]l[o]=l[o](M(l,o+d,e[b]))_=_+d;e=n[_];l[e[O]]=l[e[w]][l[e[S]]];_=_+d;e=n[_];o=e[c]l[o]=l[o](l[o+r])_=_+d;e=n[_];l[e[c]]=l[e[b]];_=_+d;e=n[_];_=e[h];break end;break;end break;end break;end break;end break;end break;end while(o)/((0x3ed15/69))==1490 do o=(11052338)while(-0x63+184)>=a do o-= o o=(8219857)while a<=((-0x34+170)+-48)do o-= o o=(8074868)while(-21+0x54)>=a do o-= o o=(4774280)while((376-0xce)-0x6f)>=a do o-= o o=(13146293)while a<=(0x96-(0xf9-156))do o-= o t[e[h]]=l[e[x]];break;end while 3721==(o)/((0x1be3-3606))do o=(333184)while a>(0xa6-108)do o-= o local o=e[O]local n={l[o](M(l,o+1,P))};local _=0;for e=o,e[B]do _=_+d;l[e]=n[_];end break end while 1096==(o)/((0x1ad+-125))do local v;local a;local P;local o;l[e[x]]=t[e[b]];_=_+d;e=n[_];l[e[U]]=l[e[D]][e[j]];_=_+d;e=n[_];o=e[C];P=l[e[f]];l[o+1]=P;l[o]=P[e[B]];_=_+d;e=n[_];l[e[c]]=l[e[N]];_=_+d;e=n[_];l[e[C]]=l[e[w]];_=_+d;e=n[_];o=e[O]l[o]=l[o](M(l,o+d,e[w]))_=_+d;e=n[_];o=e[c];P=l[e[D]];l[o+1]=P;l[o]=P[e[s]];_=_+d;e=n[_];o=e[O]l[o]=l[o](l[o+r])_=_+d;e=n[_];a={l,e};a[r][a[k][O]]=a[d][a[k][u]]+a[r][a[k][h]];_=_+d;e=n[_];l[e[i]]=l[e[f]]%e[B];_=_+d;e=n[_];o=e[C]l[o]=l[o](l[o+r])_=_+d;e=n[_];P=e[b];v=l[P]for e=P+1,e[s]do v=v..l[e];end;l[e[C]]=v;_=_+d;e=n[_];a={l,e};a[r][a[k][i]]=a[d][a[k][s]]+a[r][a[k][N]];_=_+d;e=n[_];l[e[c]]=l[e[w]]%e[S];break end;break;end break;end while(o)/((4125+-0x71))==1190 do o=(5592382)while((0x11e+-98)-127)>=a do o-= o o=(3924450)while a>(-27+0x57)do o-= o if not l[e[O]]then _=_+r;else _=e[f];end;break end while 3230==(o)/((0x4f6+-55))do local e={l,e};e[r][e[k][U]]=e[d][e[k][S]]+e[r][e[k][h]];break end;break;end while(o)/((-0x78+1558))==3889 do o=(4303120)while a>(145-0x53)do o-= o do return l[e[x]]end break end while 2831==(o)/((0x49d90/199))do local _=e[C]l[_]=l[_](M(l,_+d,e[f]))break end;break;end break;end break;end while 3716==(o)/((95612/0x2c))do o=(4473524)while(11748/0xb2)>=a do o-= o o=(591312)while a<=(320/0x5)do o-= o local a;local o;l[e[x]]=t[e[f]];_=_+d;e=n[_];l[e[O]]=e[w];_=_+d;e=n[_];l[e[C]]=e[h];_=_+d;e=n[_];l[e[c]]=e[D];_=_+d;e=n[_];o=e[O]l[o]=l[o](M(l,o+d,e[w]))_=_+d;e=n[_];o=e[i]l[o]=l[o](M(l,o+d,e[f]))_=_+d;e=n[_];o=e[i];a=l[e[h]];l[o+1]=a;l[o]=a[e[B]];_=_+d;e=n[_];l[e[O]]=t[e[D]];_=_+d;e=n[_];l[e[C]]=e[N];_=_+d;e=n[_];l[e[O]]=e[w];_=_+d;e=n[_];l[e[x]]=e[h];_=_+d;e=n[_];o=e[x]l[o]=l[o](M(l,o+d,e[b]))_=_+d;e=n[_];o=e[x]l[o]=l[o](M(l,o+d,e[N]))_=_+d;e=n[_];if l[e[i]]then _=_+d;else _=e[D];end;break;end while(o)/((2089-0x431))==582 do o=(3453091)while(14560/0xe0)<a do o-= o local o=e[b];local _=l[o]for e=o+1,e[g]do _=_..l[e];end;l[e[x]]=_;break end while 3893==(o)/(((1973-0x410)+-46))do local a;local o;l[e[U]][e[w]]=l[e[S]];_=_+d;e=n[_];o=e[O]l[o](M(l,o+r,e[f]))_=_+d;e=n[_];o=e[x];a=l[e[f]];l[o+1]=a;l[o]=a[e[u]];_=_+d;e=n[_];l[e[c]]=t[e[h]];_=_+d;e=n[_];l[e[i]]=e[h];_=_+d;e=n[_];l[e[C]]=e[D];_=_+d;e=n[_];l[e[i]]=e[w];_=_+d;e=n[_];o=e[C]l[o]=l[o](M(l,o+d,e[N]))_=_+d;e=n[_];o=e[c]l[o]=l[o](M(l,o+d,e[w]))_=_+d;e=n[_];o=e[x];a=l[e[f]];l[o+1]=a;l[o]=a[e[g]];break end;break;end break;end while(o)/((0xcf5+-94))==1388 do o=(2403660)while a<=(0x43bc/255)do o-= o o=(1192863)while a>(2144/0x20)do o-= o local e=e[O]l[e]=l[e](l[e+r])break end while 3963==(o)/((0x275-328))do if(l[e[c]]==l[e[s]])then _=_+r;else _=e[D];end;break end;break;end while 1652==(o)/((2964-0x5e5))do o=(5473262)while(8556/0x7c)<a do o-= o local e=e[C]local o,_=m(l[e](l[e+r]))P=_+e-d local _=0;for e=e,P do _=_+d;l[e]=o[_];end;break end while 1369==(o)/((8031-0xfc1))do local e=e[U]l[e]=l[e](l[e+r])break end;break;end break;end break;end break;end while(o)/((443173/0xc7))==3691 do o=(9442080)while(190-0x71)>=a do o-= o o=(745200)while a<=(0xbe-117)do o-= o o=(3261467)while a<=(0x3089/175)do o-= o l[e[i]]=v[e[f]];break;end while 1819==(o)/((0xe47-(1909+-0x2f)))do o=(3677608)while(178-(273-0xa7))<a do o-= o if(l[e[x]]==e[s])then _=_+r;else _=e[f];end;break end while 3634==(o)/((104236/0x67))do l[e[i]]=L(p[e[h]],nil,t);break end;break;end break;end while 240==(o)/((0xc79+-88))do o=(472834)while a<=(4200/0x38)do o-= o o=(64575)while(0x66+-28)<a do o-= o local e=e[O]l[e](l[e+r])break end while(o)/((302-(0x1a7-244)))==525 do local e=e[c]l[e]=l[e]()break end;break;end while 874==(o)/((643+-0x66))do o=(4855840)while(0x48bc/245)<a do o-= o local e=e[x]l[e](l[e+r])break end while(o)/((0x1c20-3640))==1364 do local e={l,e};e[r][e[k][x]]=e[d][e[k][S]]+e[r][e[k][f]];break end;break;end break;end break;end while 2844==(o)/((0x1a4a-3410))do o=(359463)while a<=(19116/0xec)do o-= o o=(1074640)while a<=((-75+-0x25)+191)do o-= o o=(3967808)while a>(272-0xc2)do o-= o l[e[O]]=e[f];break end while(o)/((0x102d8/66))==3952 do l[e[i]]=v[e[h]];break end;break;end while 2020==(o)/((53200/0x64))do o=(1819295)while a>(247-0xa7)do o-= o l[e[c]]=t[e[b]];break end while 985==(o)/((3809-0x7aa))do local e={l,e};e[d][e[k][C]]=e[k][s]+e[k][D];break end;break;end break;end while(o)/((7090/0xa))==507 do o=(2188928)while a<=(3652/0x2c)do o-= o o=(1644280)while(-0x4b+157)<a do o-= o _=e[b];break end while(o)/((0x386-498))==4070 do local a;local o;o=e[U];a=l[e[b]];l[o+1]=a;l[o]=a[e[S]];_=_+d;e=n[_];l[e[U]]={};_=_+d;e=n[_];l[e[U]]=t[e[b]];_=_+d;e=n[_];l[e[U]]=e[h];_=_+d;e=n[_];l[e[O]]=e[D];_=_+d;e=n[_];l[e[c]]=e[f];_=_+d;e=n[_];o=e[U]l[o]=l[o](M(l,o+d,e[w]))_=_+d;e=n[_];l[e[i]][e[h]]=l[e[j]];_=_+d;e=n[_];l[e[c]]=t[e[D]];_=_+d;e=n[_];l[e[O]]=l[e[b]][e[S]];break end;break;end while(o)/((2851+-0x3b))==784 do o=(11322210)while a>(235-(0xe28/24))do o-= o local o=e[C];local n=l[o+2];local d=l[o]+n;l[o]=d;if(n>0)then if(d<=l[o+1])then _=e[D];l[o+3]=d;end elseif(d>=l[o+1])then _=e[b];l[o+3]=d;end break end while 2806==(o)/((0x1fa1-(0x1fe7-4105)))do if(l[e[c]]~=l[e[g]])then _=_+r;else _=e[h];end;break end;break;end break;end break;end break;end break;end while(o)/((704064/0xc0))==3014 do o=(5122624)while(124+-0x19)>=a do o-= o o=(1953385)while(0xd7-123)>=a do o-= o o=(1729308)while(0x102-170)>=a do o-= o o=(5993081)while(211+-0x7d)>=a do o-= o local _=e[U]local n={l[_](M(l,_+1,P))};local o=0;for e=_,e[u]do o=o+d;l[e]=n[o];end break;end while(o)/((7808-0xf63))==1549 do o=(7255332)while((0x1ef-268)-140)<a do o-= o local e=e[c]l[e]=l[e](M(l,e+d,P))break end while 3199==(o)/((0x912+-54))do t[e[b]]=l[e[U]];break end;break;end break;end while 476==(o)/((0xb799f/207))do o=(8957760)while a<=(286-0xc4)do o-= o o=(100400)while(272-0xb7)<a do o-= o _=e[w];break end while(o)/((0x1402-2612))==40 do l[e[c]]=e[D];break end;break;end while(o)/((0x1b35-3493))==2580 do o=(1863219)while(3549/0x27)<a do o-= o l[e[i]]=l[e[N]];break end while 3719==(o)/((0x21e+-41))do local o=e[O];local d=l[o]local n=l[o+2];if(n>0)then if(d>l[o+1])then _=e[D];else l[o+3]=d;end elseif(d<l[o+1])then _=e[h];else l[o+3]=d;end break end;break;end break;end break;end while(o)/((228095/0x85))==1139 do o=(308348)while a<=(0xa05/(0xf4b/145))do o-= o o=(10163863)while((21364/0x62)-0x7d)>=a do o-= o local a;local o;l[e[i]]=t[e[b]];_=_+d;e=n[_];l[e[i]]=t[e[N]];_=_+d;e=n[_];l[e[x]]=e[N];_=_+d;e=n[_];l[e[i]]=e[f];_=_+d;e=n[_];l[e[c]]=e[D];_=_+d;e=n[_];o=e[U]l[o]=l[o](M(l,o+d,e[w]))_=_+d;e=n[_];l[e[x]]=l[e[w]][l[e[S]]];_=_+d;e=n[_];o=e[O]l[o]=l[o](l[o+r])_=_+d;e=n[_];a=l[e[S]];if not a then _=_+r;else l[e[x]]=a;_=e[h];end;break;end while(o)/((43216/0x10))==3763 do o=(6632656)while a>(0x245a/99)do o-= o l[e[O]]={};break end while 3226==(o)/((0x44c48/137))do l[e[U]]=#l[e[h]];break end;break;end break;end while 1964==(o)/((395-0xee))do o=(6917524)while a<=(0x46db/187)do o-= o o=(7890192)while a>(0xca+-106)do o-= o t[e[w]]=l[e[i]];_=_+d;e=n[_];l[e[C]]={};_=_+d;e=n[_];l[e[c]]={};_=_+d;e=n[_];t[e[f]]=l[e[c]];_=_+d;e=n[_];l[e[i]]=t[e[b]];_=_+d;e=n[_];if(l[e[c]]==e[u])then _=_+r;else _=e[N];end;break end while(o)/((2863+-0x47))==2826 do local e=e[U]l[e]=l[e]()break end;break;end while 2326==(o)/(((12003-0x177e)-3015))do o=(6892940)while((-0x1c+-86)+212)<a do o-= o l[e[x]]=L(p[e[h]],nil,t);break end while 2140==(o)/(((0x43a5f-138584)/43))do local e=e[x]local o,_=m(l[e](l[e+r]))P=_+e-d local _=0;for e=e,P do _=_+d;l[e]=o[_];end;break end;break;end break;end break;end break;end while 3406==(o)/((18048/(-127+0x8b)))do o=(890517)while a<=(233+-0x7f)do o-= o o=(625796)while(-0x1d+131)>=a do o-= o o=(12546920)while a<=(7100/0x47)do o-= o l[e[x]]=(e[h]~=0);break;end while(o)/((0x1b28-3486))==3620 do o=(8123320)while a>(0x2c30/112)do o-= o local _=e[U]l[_](M(l,_+r,e[N]))break end while 2612==(o)/((3136+-0x1a))do if not l[e[U]]then _=_+r;else _=e[N];end;break end;break;end break;end while(o)/((-97+0xc7b))==202 do o=(8258235)while(224-0x78)>=a do o-= o o=(7769762)while((-854/0xe)+164)<a do o-= o local _=e[i]local o,e=m(l[_](M(l,_+1,e[h])))P=e+_-1 local e=0;for _=_,P do e=e+d;l[_]=o[e];end;break end while(o)/((7870-0xf95))==2002 do local r;local a;local o;l[e[i]]=e[w];_=_+d;e=n[_];l[e[i]]=e[h];_=_+d;e=n[_];l[e[C]]=#l[e[b]];_=_+d;e=n[_];l[e[c]]=e[w];_=_+d;e=n[_];o=e[i];a=l[o]r=l[o+2];if(r>0)then if(a>l[o+1])then _=e[N];else l[o+3]=a;end elseif(a<l[o+1])then _=e[D];else l[o+3]=a;end break end;break;end while(o)/((-0x53+2804))==3035 do o=(4366136)while(0x14eb/(-0x74+167))<a do o-= o l[e[x]]=l[e[N]][e[u]];break end while 1403==(o)/((0x18a4-3196))do l[e[C]][e[N]]=l[e[S]];break end;break;end break;end break;end while(o)/((347+-0x2c))==2939 do o=(473600)while a<=((-77+0x17ef)/55)do o-= o o=(93906)while a<=(0x100-148)do o-= o o=(5692700)while a>(15622/0x92)do o-= o l[e[C]]=l[e[N]];break end while(o)/((3795-0x776))==3020 do local o=e[O];local n=l[o+2];local d=l[o]+n;l[o]=d;if(n>0)then if(d<=l[o+1])then _=e[D];l[o+3]=d;end elseif(d>=l[o+1])then _=e[w];l[o+3]=d;end break end;break;end while(o)/((0xa4+-23))==666 do o=(627150)while a>(19838/0xb6)do o-= o do return l[e[C]]end break end while 678==(o)/((-0x60+1021))do do return end;break end;break;end break;end while 740==(o)/((0x2e3+-99))do o=(1698000)while a<=(12768/0x72)do o-= o o=(3276)while(-0x56+197)<a do o-= o local _=e[x]local o,e=m(l[_](M(l,_+1,e[D])))P=e+_-1 local e=0;for _=_,P do e=e+d;l[_]=o[e];end;break end while 126==(o)/((2366/0x5b))do l[e[x]]=l[e[N]][l[e[s]]];break end;break;end while 1200==(o)/((1514+-0x63))do o=(1060740)while((28420/0xc4)+-32)<a do o-= o l[e[c]]=(e[N]~=0);_=_+r;break end while 747==(o)/((310980/0xdb))do if(l[e[U]]~=l[e[B]])then _=_+r;else _=e[f];end;break end;break;end break;end break;end break;end break;end break;end _+= r end;end);end;return L(K(),{},R())()end)_msec({[((0x293-352)+-0x72)]='\115\116'..(function(e)return(e and'((-12844/0xa9)+0xb0)')or'\114\105'or'\120\58'end)(((0xa50/55)-0x2b)==(0x86-128))..'\110g',[(0x5e2-796)]='\108\100'..(function(e)return(e and'(5400/0x36)')or'\101\120'or'\119\111'end)((131-0x7e)==(87-0x51))..'\112',[(16685/0x47)]=(function(e)return(e and'(203+-0x67)')and'\98\121'or'\100\120'end)((0x3f+-58)==(0x2f-42))..'\116\101',[(0x590/4)]='\99'..(function(e)return(e and'(-0x3f+163)')and'\90\19\157'or'\104\97'end)((-0x66+(-0x3b+166))==(0x1bc/148))..'\114',[(1183-0x25c)]='\116\97'..(function(e)return(e and'(0x143-223)')and'\64\113'or'\98\108'end)((0x85-(379-0xfc))==((0x15e-235)+-0x6e))..'\101',[(495+-0x37)]=(function(e)return(e and'((0x42d9/109)+-0x39)')or'\115\117'or'\78\107'end)((-59+0x3e)==(-57+0x58))..'\98',[(876+-0x38)]='\99\111'..(function(e)return(e and'(299-0xc7)')and'\110\99'or'\110\105\103\97'end)(((0x8-42)+0x41)==(-0x60+127))..'\97\116',[(-0x1e+643)]=(function(e,_)return(e and'(0x5b04/233)')and'\48\159\158\188\10'or'\109\97'end)((0x1ef/99)==(74-0x44))..'\116\104',[(0x21f78/102)]=(function(e,_)return((0x33-46)==(0x7d+-122)and'\48'..'\195'or e..((not'\20\95\69'and'\90'..'\180'or _)))or'\199\203\95'end),[(1840/0x2)]='\105\110'..(function(e,_)return(e and'(14300/0x8f)')and'\90\115\138\115\15'or'\115\101'end)((128-0x7b)==(122-0x5b))..'\114\116',[(-0x6a+1169)]='\117\110'..(function(e,_)return(e and'(0x1bbc/71)')or'\112\97'or'\20\38\154'end)(((0xe5-150)-74)==(0x74-85))..'\99\107',[(-0x1a+1187)]='\115\101'..(function(e)return(e and'((26-0x30)+0x7a)')and'\110\112\99\104'or'\108\101'end)((0x28/(224/0x1c))==(0x8d-110))..'\99\116',[(-0x71+1408)]='\116\111\110'..(function(e,_)return(e and'(0x147-227)')and'\117\109\98'or'\100\97\120\122'end)((-0x13+24)==(0x2c+-39))..'\101\114'},{[(4680/0x48)]=((getfenv))},((getfenv))()) end)()
+
+
+
+        end
+        if cmd == "ab" then
+            
+            while wait(0.5) do
+                local A_1 = "ExN Auto Broly"
+                local A_2 = "All"
+                local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
+                Event:FireServer(A_1, A_2)
+                break
+            end
+            
+
+wait(0.2)
+Move1 = "Meteor Crash"
+Move2 = "Wolf Fang Fist"
+Move3 = "TS Molotov"
+Move4 = "Anger Rush"
+Move5 = "Deadly Dance"
+Move6 = "Strong Kick"
+Move7 = "Sweep Kick"
+Move8 = "Time Skip"
+Move9 = "Flash Skewer"
+Move10 = "Time Skip Molotov" 
+Move11 = "Vital Strike"
+
+AutoStats = "empty" -- KiDMG para Ki-Damage, MeleeDMG para Phys-Damage, HPMax para Health-Max, KiMax para Ki-Max, MeleeRes para Phys-Resist, KiRes para Ki-Resist, Speed para Speed, Empty para nada :).
+Earth = false -- Pon true pa ir a la  earth. False pa ir al queue world :).
+FreezeEXP = false -- pa frenar el timer :).
+AntiLeech = false -- true pa ir solo solin solito, false pa llevar gente :).
+Forms = true -- esto dejelo asi no sea necio :).
+BoostFPS = true -- pa boostear tus fps makina :).
+Day = false -- esta madre es por si quieres que se vea como de dia pero mejor dejelo asi :).
+Anchor = true --si pones true se mueve tu npc por todo el mapa, si pones false se queda quieto donde agarra a broly:).
+
+
+if not game:IsLoaded() then
+    local loadedcheck = Instance.new("Message", workspace)
+    loadedcheck.Text = "Cargando :)..."
+    game.Loaded:Wait(14)
+    loadedcheck:Destroy()
+    
+end
+wait(0.2)
+game:GetService("StarterGui"):SetCore(
+    "SendNotification",
+    {
+        Title = "Auto Broly ExN";
+        Text = "By  NoizyBoy x Evilsayan"
+    }
+)
+local plr = game.Players.LocalPlayer
+game.Workspace:WaitForChild("Live")
+game.Workspace.Live:WaitForChild(plr.Name)
+game:GetService("RunService").RenderStepped:connect(
+    function()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.SP.Visible = true
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.SP.Text = "Made By NoizyBoy x llEvilSayanll";
+    end
+)
+
+game.Players.LocalPlayer.PlayerGui:WaitForChild("HUD")
+game.Players.LocalPlayer.PlayerGui.HUD.Bottom.Stats.Visible = true
+game.Players.LocalPlayer.PlayerGui.HUD.Bottom.Stats.Labvel.TextLabel.Text = "Made By NoizyBoy x llEvilSayanll"
+--[[ Tracker ]]--
+local track =
+        coroutine.create(
+        function()
+            Target = "broly br"
+            for i, w in pairs(game.Workspace.Live:GetChildren()) do
+                if string.match(string.lower(w.Name), string.lower(Target)) then
+                    _G.Track = true
+                    while _G.Track and game:GetService("RunService").Heartbeat:wait() do
+                        w:WaitForChild("HumanoidRootPart")
+                        for i, v in pairs(game.Workspace:GetChildren()) do
+                            if v:FindFirstChild("Ki") and v:FindFirstChild("Mesh") then
+                                v.CFrame = w.HumanoidRootPart.CFrame
+                            end
+                        end
+                        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                            if v:FindFirstChild("Ki") and v:FindFirstChild("Mesh") then
+                                v.CFrame = w.HumanoidRootPart.CFrame
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    )
+--[[ Tracker ]]--PRICE -- 5USD
+
+
+
+
+
+
+
+
+
+
+--[[ Boost FPS ]]--
+if BoostFPS == true then
+repeat wait()
+ until game:IsLoaded()
+   game.Players.LocalPlayer.PlayerGui:WaitForChild("HUD")
+
+local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20 // Si va a menos de 20 fps hara rejoin pa que no valla lag :).
+local g = game
+local w = g.Workspace
+local l = g.Lighting
+local t = w.Terrain
+t.WaterWaveSize = 0
+t.WaterWaveSpeed = 0
+t.WaterReflectance = 0
+t.WaterTransparency = 0
+l.GlobalShadows = false
+l.FogEnd = 9e9
+l.Brightness = 0
+settings().Rendering.QualityLevel = "Level01"
+for i, v in pairs(g:GetDescendants()) do
+    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+        v.Transparency = 1
+    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+        v.Lifetime = NumberRange.new(0)
+    elseif v:IsA("Explosion") then
+        v.BlastPressure = 1
+        v.BlastRadius = 1
+    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then   
+        v.Enabled = false
+    elseif v:IsA("MeshPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+        v.TextureID = 10385902758728957
+    end
+end
+for i, e in pairs(l:GetChildren()) do
+    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+        e.Enabled = false
+    end
+end
+end
+--[[ Boost FPS ]]--
+
+--[[ Freeze EXP ]]--
+    if FreezeEXP == true then
+			game:GetService("RunService").Stepped:Connect(function()
+				if game:GetService("Players").LocalPlayer.Character:FindFirstChild("True") then
+					game:GetService("Players").LocalPlayer.Character:FindFirstChild("True"):Destroy()
+				end
+			end)
+		end
+--[[ Freeze EXP ]]--
+    
+--[[ Auto Stats ]]--
+while wait() do
+
+if AutoStats == "KiDMG" then
+local args = {
+    [1] = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats:FindFirstChild("Ki-Damage")
+}
+game:GetService("Players").LocalPlayer.Backpack.ServerTraits.AttemptUpgrade:FireServer(unpack(args))
+end
+if AutoStats == "MeleeDMG" then
+    local args = {
+    [1] = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats:FindFirstChild("Phys-Damage")
+}
+game:GetService("Players").LocalPlayer.Backpack.ServerTraits.AttemptUpgrade:FireServer(unpack(args))
+end
+if AutoStats == "HPMax" then
+local args = {
+    [1] = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats:FindFirstChild("Health-Max")
+}
+end
+if AutoStats == "KiMax" then
+local args = {
+    [1] = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats:FindFirstChild("Ki-Max")
+}
+end
+if AutoStats == "MeleeRes" then
+local args = {
+    [1] = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats:FindFirstChild("Phys-Resist")
+}
+end
+if AutoStats == "KiRes" then
+local args = {
+    [1] = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats:FindFirstChild("Ki-Resist")
+}
+end
+if AutoStats == "Speed" then
+local args = {
+    [1] = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats:FindFirstChild("Speed")
+}
+end
+--[[ Auto Stats ]]--
+
+-- Earth Loader
+if game.PlaceId == 536102540 then
+    if Earth == true then
+        local plr = game.Players.LocalPlayer
+        game.Players.LocalPlayer.Character.PowerOutput:Destroy()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2751.67725, 3944.85986, -2272.62622)
+        game:GetService("Workspace").Live[plr.Name].Humanoid.Animator:Destroy()
+        wait(75)
+	game:GetService("TeleportService"):Teleport(536102540)
+    else
+            game:GetService("TeleportService"):Teleport(3565304751)
+            wait(15)
+            game:GetService("TeleportService"):Teleport(3565304751)
+end
+end
+
+--[[ Hide Wings ]]--
+repeat wait()
+ until game:IsLoaded()
+   game.Players.LocalPlayer.PlayerGui:WaitForChild("HUD")
+
+local Live = game:WaitForChild("Workspace").Live
+local Char = Live:WaitForChild(game.Players.LocalPlayer.Name)
+
+while wait() do
+    pcall(function()
+        Char["RebirthWings"].Handle.AccessoryWeld:Destroy()
+    end)
+--[[ Hide Wings ]]--
+    
+    --[[ Hide Lvl/Pres ]]--
+    game:service'RunService'.RenderStepped:connect(function()
+    pcall(function()
+       for i,v in next, game:service'Players'.LocalPlayer.Character:children() do
+            if (string.find(tostring(v.Name):lower(), 'lvl.')) then 
+              v:Destroy()
+          end
+       end
+   end)
+end)
+--[[ Hide Lvl/Pres ]]--
+    
+--[[ Hide Face ]]--
+repeat wait()
+ until game:IsLoaded()
+   game.Players.LocalPlayer.PlayerGui:WaitForChild("HUD")
+
+local Live = game:WaitForChild("Workspace").Live
+local Char = Live:WaitForChild(game.Players.LocalPlayer.Name)
+	for i,v in pairs(Char:GetDescendants()) do
+		if v:IsA("Decal") and v.Name == 'face' then
+			v:Destroy()
+		end
+	end
+--[[ Hide Face ]]--
+
+-- Queue World Loader
+function Twn(HRP,Place,Length)
+    local Twn = game:GetService("TweenService"):Create(HRP,
+    TweenInfo.new(Length,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),{CFrame = Place})
+    Twn:Play()
+    Twn.Completed:Wait()
+end
+local Live = game:WaitForChild("Workspace").Live
+local Char = Live:WaitForChild(game.Players.LocalPlayer.Name)
+if game.PlaceId == 3565304751 then
+    if AntiLeech == false then do
+    Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-1500),1)
+    Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-2000),1)
+    Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-3000),1)
+	Char.LowerTorso:Destroy()
+    game.Players.LocalPlayer.Character.PowerOutput:Destroy()
+	local Pads = {}
+    for i,v in pairs(game:WaitForChild("Workspace"):GetChildren()) do
+        if v.Name:find("BrolyTeleport") then		       
+			table.insert(Pads,v)
+        end
+    end
+	local pad = Pads[math.random(1,7)]
+	print(pad.Name)
+	Twn(Char.HumanoidRootPart,pad.PrimaryPart.CFrame,1)
+	wait(45)
+	game:GetService("TeleportService"):Teleport(536102540)
+    end
+    end
+    if AntiLeech == true then do
+	local Bounce = false
+    Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-1500),1)
+    Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-2000),1)
+    Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-3000),1)
+	Char.LowerTorso:Destroy()
+	local TeleBounce = false
+	local CollideBounce = false
+	local CollideBounce2 = false
+	function FindPad(Time)
+		for i,v in pairs(game.Workspace:GetChildren()) do
+			if v.Name:find("BrolyTeleport") and v:FindFirstChild("15") then
+				if TeleBounce == false then 
+					TeleBounce = true
+					Twn(Char.HumanoidRootPart,v.PrimaryPart.CFrame + Vector3.new(0,3,0),1)
+					TeleBounce = false
+					break
+				end
+			end
+		end
+	end 
+	for i,v in pairs(Char:GetChildren()) do if v.Name:find("Lvl") then v:Destroy() end end
+		FindPad(3)
+		Char.HumanoidRootPart.Size = Vector3.new(25,2,50)
+		Char.HumanoidRootPart.CanCollide = false
+		Char.HumanoidRootPart.Touched:Connect(function(Collide)
+		if Collide.Parent:FindFirstChild("Humanoid") and Collide.Parent:FindFirstChild("HumanoidRootPart") then
+			if Collide.Parent.Name == game.Players.LocalPlayer.Name then 
+			else
+				if CollideBounce == true then
+					FindPad(.6)
+				end 
+				if CollideBounce2 == false then
+					CollideBounce2 = true
+					CollideBounce = false
+					wait(1)
+					CollideBounce = true
+					wait(1)
+					CollideBounce = false
+					CollideBounce2 = false
+				end
+			end
+		end
+	end)
+	wait(27)
+	game:GetService("TeleportService"):Teleport(3565304751)
+    end
+end
+end
+
+if game.PlaceId == 2050207304 then
+    local B = Live:WaitForChild("Broly BR")
+    local plr = game.Players.LocalPlayer
+    
+--[[ StopWatch ]]--
+if game.PlaceId == 2050207304 then
+local Stopwatch = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+ 
+ 
+Stopwatch.Name = "Stopwatch"
+Stopwatch.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Stopwatch.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ 
+Frame.Parent = Stopwatch
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BackgroundTransparency = 1.000
+Frame.Size = UDim2.new(0, 1543, 0, 104)
+ 
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Size = UDim2.new(0, 1543, 0, 104)
+TextLabel.Font = Enum.Font.ArialBold
+TextLabel.Text = "Loading..."
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextScaled = false
+TextLabel.TextSize = 52.000
+TextLabel.TextWrapped = true
+ 
+-- Scripts:
+ 
+local function HNULUA_fake_script() -- TextLabel.LocalScript 
+    local script = Instance.new('LocalScript', TextLabel)
+ 
+    Stopwatch = 0
+    while true do
+        Stopwatch = Stopwatch+1
+        wait(1)
+        script.Parent.Text = (Stopwatch)
+    end
+end
+coroutine.wrap(HNULUA_fake_script)()
+end
+--[[ StopWatch ]]--
+    
+--[[ Day ]]--
+if Day == true then
+for i,v in pairs(game.Lighting:GetChildren()) do
+if v:IsA("") or v:IsA("Sky") or v:IsA("BlurEffect") or v:IsA("BloomEffect") or v:IsA("SunRaysEffect") then
+v:Destroy()
+end
+end
+
+game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+game.Lighting.Brightness = 1
+game.Lighting.ClockTime = 14
+game.Lighting.ColorShift_Bottom = Color3.fromRGB(255, 255, 255)
+game.Lighting.ColorShift_Top = Color3.fromRGB(255, 255, 255)
+game.Lighting.ExposureCompensation = 0
+game.Lighting.FogColor = Color3.fromRGB(255, 255, 255)
+game.Lighting.FogEnd = 999999999
+game.Lighting.GeographicLatitude = 41.733
+game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+game.Lighting.GlobalShadows = true
+game.Lighting.Changed:Connect(function()
+game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+game.Lighting.Brightness = 1
+game.Lighting.ClockTime = 14
+game.Lighting.ColorShift_Bottom = Color3.fromRGB(255, 255, 255)
+game.Lighting.ColorShift_Top = Color3.fromRGB(255, 255, 255)
+game.Lighting.ExposureCompensation = 0
+game.Lighting.FogColor = Color3.fromRGB(255, 255, 255)
+game.Lighting.FogEnd = 999999999
+game.Lighting.GeographicLatitude = 41.733
+game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+game.Lighting.GlobalShadows = true
+end)
+game.Lighting.DescendantAdded:Connect(function(obj)
+if obj:IsA("") or obj:IsA("Sky") or obj:IsA("BlurEffect") or obj:IsA("BloomEffect") or obj:IsA("SunRaysEffect") then
+obj:Destroy()
+end
+end)
+end
+--[[ Day ]]--
+
+--[[ Anti Leech ]]--
+    if AntiLeech == true then
+        if #game.Players:GetPlayers() > 1 then
+            wait()
+            game:GetService("TeleportService"):Teleport(3565304751, LocalPlayer)
+        end
+    end
+--[[ Anti Leech ]]--
+
+--[[ Forms ]]--
+if Forms == true then
+            if plr.PlayerGui:WaitForChild("HUD").Bottom.Stats.Race.Val.Text == "Android" then
+                game.Players.LocalPlayer.Backpack.ServerTraits.Transform:FireServer("g")
+            else
+                game.Players.LocalPlayer.Backpack.ServerTraits.Input:FireServer(
+                    {[1] = "x"},
+                    CFrame.new(0, 0, 0),
+                    InputObject
+                )
+                wait(0.1)
+                game.Players.LocalPlayer.Backpack.ServerTraits.Transform:FireServer("h")
+                wait(0.2)
+                game.Players.LocalPlayer.Backpack.ServerTraits.Input:FireServer(
+                    {[1] = "xoff"},
+                    CFrame.new(0, 0, 0),
+                    InputObject
+                )
+            end
+        end
+       game.Workspace.Camera.FieldOfView = 120
+--[[ Forms ]]--
+
+        Twn(Char.HumanoidRootPart, B.HumanoidRootPart.CFrame, 1)
+        game:GetService("RunService").RenderStepped:connect(
+            function()
+                Char.Humanoid:ChangeState(11)
+                game.Workspace.CurrentCamera.CFrame =
+                    CFrame.new(Char.HumanoidRootPart.Position, B.HumanoidRootPart.Position) * CFrame.new(0, 2, 10)
+                if Char:FindFirstChild("Attacking") then
+                    Char.Attacking:Destroy()
+                end
+                if Char:FindFirstChild("Action") then
+                    Char.Action:Destroy()
+                end
+                if Char:FindFirstChild("Slow") then
+                    Char.Slow:Destroy()
+                end
+                if Char:FindFirstChild("Using") then
+                    Char.Using:Destroy()
+                end
+                if Char:FindFirstChild("MoveStart") then
+                    Char.MoveStart:Destroy()
+                end
+                if game.Players.LocalPlayer.Character.Head:FindFirstChild("KnockBacked") then
+            game.Players.LocalPlayer.Character.Head.KnockBacked:Destroy()
+            end
+            if game.Players.LocalPlayer.Character.Head:FindFirstChild("NotHardBack") then
+            game.Players.LocalPlayer.Character.Head.NotHardBack:Destroy()
+            end
+                if Char.Humanoid.Health < 1 then
+                    game:GetService("TeleportService"):Teleport(3565304751)
+                end
+                game.Players.LocalPlayer.Backpack.ServerTraits.EatSenzu:FireServer(true)
+                if Char.Humanoid.Health < 25 then
+                    game.Players.LocalPlayer.Backpack.ServerTraits.Transform:FireServer("h")
+                end
+                if game.Players.LocalPlayer.Character.Ki.Value < 32 then
+                    _G.HardPunch = true
+                    local A_1 = {
+                        [1] = "m2"
+                    }
+                    local A_2 =
+                        CFrame.new(
+                        -5885.95947,
+                        17.9874992,
+                        -4159.84717,
+                        -0.104352206,
+                        0.396405816,
+                        -0.912125587,
+                        -0,
+                        0.917132735,
+                        0.398581922,
+                        0.994540393,
+                        0.0415929034,
+                        -0.0957048237
+                    )
+                    local A_3 = nil
+                    local A_4 = false
+                    local Event = game:GetService("Players").LocalPlayer.Backpack.ServerTraits.Input
+                    Event:FireServer(A_1, A_2, A_3, A_4)
+                    wait()
+                    _G.HardPunch = true
+                end
+                Char.HumanoidRootPart.CFrame =
+                    game.Workspace.Live["Broly BR"].HumanoidRootPart.CFrame * CFrame.new(0, 0, 4.20)
+                Char.HumanoidRootPart.CFrame = CFrame.new(Char.HumanoidRootPart.Position, B.HumanoidRootPart.Position)
+            end
+        )
+        game.Players.LocalPlayer.PlayerGui:WaitForChild("HUD")
+        game.Players.LocalPlayer.Backpack["Dragon Crush"].Parent = Char
+    Char["Dragon Crush"].Activator["Flip"]:Destroy()
+    Char["Dragon Crush"].Activator["Throw"]:Destroy()
+    Char["Dragon Crush"].Activator["Blocked"]:Destroy()
+    Char["Dragon Crush"].Activator["HitDown"]:Destroy()
+    Char["Dragon Crush"].Activator["BoneBreak"]:Destroy()
+    wait(0.2)
+    Char["Dragon Crush"]:Activate()
+    wait(0.2)
+    Char["Dragon Crush"]:Deactivate()
+    Char["Dragon Crush"].Parent = game.Players.LocalPlayer.Backpack
+    
+    if Anchored then
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+end
+        repeat
+game.Workspace.Live['Broly BR'].LowerTorso.Anchored =
+game.Workspace.Live['Broly BR'].UpperTorso.Anchored
+            game:GetService("RunService").RenderStepped:Wait()
+            for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if
+                    v.Name == Move1 or v.Name == Move2 or v.Name == Move3 or v.Name == Move4 or v.Name == Move5 or
+                        v.Name == Move6 or
+                        v.Name == Move7 or
+                        v.Name == Move8 or
+                        v.Name == Move9 or
+                        v.Name == Move10
+                 then
+                    v.Parent = game:GetService("Workspace").Live[game.Players.LocalPlayer.Name]
+                    wait()
+                    v:Activate()
+                    v:Deactivate()
+                    v.Parent = game.Players.LocalPlayer.Backpack
+                end
+            end
+        until B.Humanoid.Health < .1
+        wait(0.5)
+        game:GetService("TeleportService"):Teleport(3565304751)
+        elseif Earth == true then
+        game:GetService("TeleportService"):Teleport(536102540)
+end
+end
+end
+        end    
+        if cmd == "ag" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Anti Glitch";
+                Text = "Activated";
+            })
+            if not game:IsLoaded() then
+                game.Loaded:Wait()
+            end
+
+            local plr = game.Players.LocalPlayer
+
+            while wait() do
+                pcall(function()
+                    game:GetService("Workspace").Live[plr.Name].LowerTorso.BodyVelocity:Destroy()
+                end)
+            end
+
+            while wait() do
+                pcall(function()
+                    game:GetService("Workspace").Live[plr.Name].LowerTorso.BodyVelocity:Destroy()
+                end)
+            end
+        end
+        if cmd == "toprespawn" then
+            Die = game.Players.LocalPlayer.Character
+            lplr = game:GetService("Players").LocalPlayer
+            game:GetService("RunService").RenderStepped:connect(function()
+                if Die.Humanoid.Health == 1 then
+                    game:GetService("Players").LocalPlayer.Character.SuperAction:Destroy()
+                    wait(0.8)
+                    game:GetService("TweenService"):Create(lplr.Character.HumanoidRootPart, TweenInfo.new(0.5, Enum.EasingStyle.Linear), {CFrame = CFrame.new(100, 100, 100)}):Play()
+                end
+            end)
+        end
+        if cmd == "slot1" then
+            local Slot = "Slot1"
+            local A_1 = { [1] = "k" }
+            local A_2 = { [1] = "Slot1" }
+            local A_3 = { [1] = "Yes" }
+            local pzath = game.Players.LocalPlayer.Backpack.ServerTraits.ChatAdvance
+            game.Players.LocalPlayer.Backpack.ServerTraits.ChatStart:FireServer(game.Workspace.FriendlyNPCs["Character Slot Changer"]) wait(.3)
+            pzath:FireServer(A_3) wait(1)
+            pzath:FireServer(A_1) wait(1)
+            pzath:FireServer(A_2) wait(1)
+            pzath:FireServer(A_1) wait(1)
+        end
+        if cmd == "slot2" then
+            local Slot = "Slot2"
+
+            local A_1 = { [1] = "k" }
+            local A_2 = { [1] = "Slot2" }
+            local A_3 = { [1] = "Yes" }
+            local pzath = game.Players.LocalPlayer.Backpack.ServerTraits.ChatAdvance
+            game.Players.LocalPlayer.Backpack.ServerTraits.ChatStart:FireServer(game.Workspace.FriendlyNPCs["Character Slot Changer"]) wait(.3)
+            pzath:FireServer(A_3) wait(1)
+            pzath:FireServer(A_1) wait(1)
+            pzath:FireServer(A_2) wait(1)
+            pzath:FireServer(A_1) wait(1)
+        end
+        if cmd == "slot3" then
+            local Slot = "Slot3"
+
+            local A_1 = { [1] = "k" }
+            local A_2 = { [1] = "Slot3" }
+            local A_3 = { [1] = "Yes" }
+            local pzath = game.Players.LocalPlayer.Backpack.ServerTraits.ChatAdvance
+            game.Players.LocalPlayer.Backpack.ServerTraits.ChatStart:FireServer(game.Workspace.FriendlyNPCs["Character Slot Changer"]) wait(.3)
+            pzath:FireServer(A_3) wait(1)
+            pzath:FireServer(A_1) wait(1)
+            pzath:FireServer(A_2) wait(1)
+            pzath:FireServer(A_1) wait(1)
+        end 
+        if cmd == "bs" then
+            if not game:IsLoaded() then
+                game.Loaded:Wait()
+            end wait()
+
+            player = game.Players.LocalPlayer while wait() do
+                if game.Workspace.Live[player.Name].Animate.idle:FindFirstChild("Animation1") then
+                    game.Workspace.Live[player.Name].Animate.idle:FindFirstChild("Animation1").AnimationId = "rbxassetid://1171558651"
+                    if game.Workspace.Live[player.Name].Animate.walk:FindFirstChild("RunAnim") then
+                        game.Workspace.Live[player.Name].Animate.walk:FindFirstChild("RunAnim").AnimationId = "rbxassetid://1171558651"
+                    end end end
+        end
+        if cmd == "gm" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Good Mode";
+                Text = "Activated";
+            })
+            local Plr = game.Players.LocalPlayer
+            local GodModeBool = true
+
+            game:GetService("RunService").RenderStepped:connect(function()
+                if  GodModeBool  then
+                    game.Workspace.Touchy.Part.CFrame = Plr.Character.HumanoidRootPart.CFrame + Vector3.new(0,0,1)
+                    if Plr.PlayerGui:FindFirstChild("Popup") then
+                        Plr.PlayerGui.Popup.Enabled = false
+                    end
+                    if not GodModeBool  then
+                        return
+                    end end end)
+        end            
+        if cmd == "rj" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Rejoin";
+                Text = "Activated";
+            })
+            game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+        end
+        if cmd == "iy" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Infinity Yield";
+                Text = "Running";
+            })
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+        end
+        if cmd == "lock" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Look ON";
+                Text = "Press O then Press Y ";
+            })
+            local plrs = game:GetService("Players")
+            local TeamBased = true ; local teambasedswitch = "o"
+            local presskeytoaim = true; local aimkey = "v"
+            local raycast = false
+            local espupdatetime = 5; autoesp = false
+            local lockaim = true; local lockangle = 5
+            local Gui = Instance.new("ScreenGui")
+            local Move = Instance.new("Frame")
+            local Main = Instance.new("Frame")
+            local EspStatus = Instance.new("TextLabel")
+            local st1 = Instance.new("TextLabel")
+            local st1_2 = Instance.new("TextLabel")
+            local st1_3 = Instance.new("TextLabel")
+            local Name = Instance.new("TextLabel")
+            local plrsforaim = {}
+            local lplr = game:GetService("Players").LocalPlayer
+            Move.Draggable = true
+            Gui.ResetOnSpawn = false
+            Gui.Name = "Chat"
+            Gui.DisplayOrder = 999
+
+            Gui.Parent = plrs.LocalPlayer.PlayerGui
+
+            f = {}
+            local espforlder
+
+            f.addesp = function()
+                --print("ESP ran")
+                if espforlder then
+                else
+                    espforlder = Instance.new("Folder")
+                    espforlder.Parent = game.Workspace.CurrentCamera
+                end
+                for i, v in pairs(espforlder:GetChildren()) do
+                    v:Destroy()
+                end
+                for _, plr in pairs(plrs:GetChildren()) do
+                    if plr.Character and plr.Character.Humanoid.Health > 0 and plr.Name ~= lplr.Name then
+                        if TeamBased == true then
+                            if plr.Team.Name ~= plrs.LocalPlayer.Team.Name  then
+                                local e = espforlder:FindFirstChild(plr.Name)
+                                if not e then
+                                    --print("Added esp for team based")
+                                    local bill = Instance.new("BillboardGui", espforlder)
+                                    bill.Name = plr.Name
+                                    bill.AlwaysOnTop = true
+                                    bill.Size = UDim2.new(1,0,1,0)
+                                    bill.Adornee = plr.Character.Head
+                                    local Frame = Instance.new('Frame',bill)
+                                    Frame.Active = true
+                                    Frame.BackgroundColor3 = Color3.new(0/255,255/255,0/255)
+                                    Frame.BackgroundTransparency = 0
+                                    Frame.BorderSizePixel = 0
+                                    Frame.AnchorPoint = Vector2.new(.5, .5)
+                                    Frame.Position = UDim2.new (0.5,0,0.5,0)
+                                    Frame.Size = UDim2.new (1,0,1,0)
+                                    Frame.Rotation = 0
+                                    plr.Character.Humanoid.Died:Connect(function()
+                                        bill:Destroy()
+                                    end)
+                                end
+                            end
+                        else
+                            local e = espforlder:FindFirstChild(plr.Name)
+                            if not e then
+                                --print("Added esp")
+                                local bill = Instance.new("BillboardGui", espforlder)
+                                bill.Name = plr.Name
+                                bill.AlwaysOnTop = true
+                                bill.Size = UDim2.new(1,0,1,0)
+                                bill.Adornee = plr.Character.Head
+                                local Frame = Instance.new('Frame',bill)
+                                Frame.Active = true
+                                Frame.BackgroundColor3 = Color3.new(0/255,255/255,0/255)
+                                Frame.BackgroundTransparency = 0
+                                Frame.BorderSizePixel = 0
+                                Frame.AnchorPoint = Vector2.new(.5, .5)
+                                Frame.Position = UDim2.new (0.5,0,0.5,0)
+                                Frame.Size = UDim2.new (1,0,1,0)
+                                Frame.Rotation = 0
+                                plr.Character.Humanoid.Died:Connect(function()
+                                    bill:Destroy()
+                                end)
+                            end
+                        end
+
+
+                    end
+                end
+            end
+            local cam = game.Workspace.CurrentCamera
+
+            local mouse = lplr:GetMouse()
+            local switch = false
+            local key = "k"
+            local aimatpart = nil
+            mouse.KeyDown:Connect(function(a)
+                if a == "" then
+                    print("worked1")
+                    f.addesp()
+                elseif a == "" then
+                    if raycast == true then
+                        raycast = false
+                    else
+                        raycast = true
+                    end
+                elseif a == "" then
+                    if autoesp == false then
+                        autoesp = true
+                    else
+                        autoesp = false
+                    end
+                end
+                if a == "" then
+                    if mouse.Target then
+                        mouse.Target:Destroy()
+                    end
+                end
+                if a == key then
+                    if switch == false then
+                        switch = true
+                    else
+                        switch = false
+                        if aimatpart ~= nil then
+                            aimatpart = nil
+                        end
+                    end
+                elseif a == teambasedswitch then
+                    if TeamBased == true then
+                        TeamBased = false
+                        teambasedstatus.Text = tostring(TeamBased)
+                    else
+                        TeamBased = true
+                        teambasedstatus.Text = tostring(TeamBased)
+                    end
+                elseif a == aimkey then
+                    if not aimatpart then
+                        local maxangle = math.rad(20)
+                        for i, plr in pairs(plrs:GetChildren()) do
+                            if plr.Name ~= lplr.Name and plr.Character and plr.Character.Head and plr.Character.Humanoid and plr.Character.Humanoid.Health > 1 then
+                                if TeamBased == true then
+                                    if plr.Team.Name ~= lplr.Team.Name then
+                                        local an = checkfov(plr.Character.Head)
+                                        if an < maxangle then
+                                            maxangle = an
+                                            aimatpart = plr.Character.Head
+                                        end
+                                    end
+                                else
+                                    local an = checkfov(plr.Character.Head)
+                                    if an < maxangle then
+                                        maxangle = an
+                                        aimatpart = plr.Character.Head
+                                    end
+                                    print(plr)
+                                end
+                                plr.Character.Humanoid.Died:Connect(function()
+                                    if aimatpart.Parent == plr.Character or aimatpart == nil then
+                                        aimatpart = nil
+                                    end
+                                end)
+                            end
+                        end
+                    else
+                        aimatpart = nil
+                    end
+                end
+            end)
+
+            function getfovxyz (p0, p1, deg)
+                local x1, y1, z1 = p0:ToOrientation()
+                local cf = CFrame.new(p0.p, p1.p)
+                local x2, y2, z2 = cf:ToOrientation()
+                --local d = math.deg
+                if deg then
+                    --return Vector3.new(d(x1-x2), d(y1-y2), d(z1-z2))
+                else
+                    return Vector3.new((x1-x2), (y1-y2), (z1-z2))
+                end
+            end
+
+            function getaimbotplrs()
+                plrsforaim = {}
+                for i, plr in pairs(plrs:GetChildren()) do
+                    if plr.Character and plr.Character.Humanoid and plr.Character.Humanoid.Health > 0 and plr.Name ~= lplr.Name and plr.Character.Head then
+
+                        if TeamBased == true then
+                            if plr.Team.Name ~= lplr.Team.Name then
+                                local cf = CFrame.new(game.Workspace.CurrentCamera.CFrame.p, plr.Character.Head.CFrame.p)
+                                local r = Ray.new(cf, cf.LookVector * 10000)
+                                local ign = {}
+                                for i, v in pairs(plrs.LocalPlayer.Character:GetChildren()) do
+                                    if v:IsA("BasePart") then
+                                        table.insert(ign , v)
+                                    end
+                                end
+                                local obj = game.Workspace:FindPartOnRayWithIgnoreList(r, ign)
+                                if obj.Parent == plr.Character and obj.Parent ~= lplr.Character then
+                                    table.insert(plrsforaim, obj)
+                                end
+                            end
+                        else
+                            local cf = CFrame.new(game.Workspace.CurrentCamera.CFrame.p, plr.Character.Head.CFrame.p)
+                            local r = Ray.new(cf, cf.LookVector * 10000)
+                            local ign = {}
+                            for i, v in pairs(plrs.LocalPlayer.Character:GetChildren()) do
+                                if v:IsA("BasePart") then
+                                    table.insert(ign , v)
+                                end
+                            end
+                            local obj = game.Workspace:FindPartOnRayWithIgnoreList(r, ign)
+                            if obj.Parent == plr.Character and obj.Parent ~= lplr.Character then
+                                table.insert(plrsforaim, obj)
+                            end
+                        end
+
+
+                    end
+                end
+            end
+
+            function aimat(part)
+                cam.CFrame = CFrame.new(cam.CFrame.p, part.CFrame.p)
+            end
+            function checkfov (part)
+                local fov = getfovxyz(game.Workspace.CurrentCamera.CFrame, part.CFrame)
+                local angle = math.abs(fov.X) + math.abs(fov.Y)
+                return angle
+            end
+
+            game:GetService("RunService").RenderStepped:Connect(function()
+                if aimatpart then
+                    aimat(aimatpart)
+                    if aimatpart.Parent == plrs.LocalPlayer.Character then
+                        aimatpart = nil
+                    end
+                end
+                if raycast == true and switch == false and not aimatpart then
+                    getaimbotplrs()
+                    aimatpart = nil
+                    local maxangle = 999
+                    for i, v in ipairs(plrsforaim) do
+                        if v.Parent ~= lplr.Character then
+                            local an = checkfov(v)
+                            if an < maxangle and v ~= lplr.Character.Head then
+                                maxangle = an
+                                aimatpart = v
+                                print(v:GetFullName())
+                                v.Parent.Humanoid.Died:connect(function()
+                                    aimatpart = nil
+                                end)
+                            end
+                        end
+                    end
+
+                end
+            end)
+            delay(0, function()
+                while wait(espupdatetime) do
+                    if autoesp == true then
+                        pcall(function()
+                            f.addesp()
+                        end)
+                    end
+                end
+            end)
+            warn("loaded")
+        end
+        if cmd == "sd" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Speed Enabled";
+                Text = "Press v";
+            }) 
+            down = false
+velocity = Instance.new("BodyVelocity")
+velocity.maxForce = Vector3.new(10000000, 0, 10000000)
+---vv Use that to change the speed v
+local speed    = 700
+gyro           = Instance.new("BodyGyro")
+gyro.maxTorque = Vector3.new(10000000, 0, 10000000)
+
+local hum = game.Players.LocalPlayer.Character.Humanoid
+
+function onButton1Down(mouse)
+down = true
+velocity.Parent = game.Players.LocalPlayer.Character.UpperTorso
+velocity.velocity = (hum.MoveDirection) * speed
+gyro.Parent = game.Players.LocalPlayer.Character.UpperTorso
+while down do
+if not down then break end
+velocity.velocity = (hum.MoveDirection) * speed
+local refpos = gyro.Parent.Position + (gyro.Parent.Position - workspace.CurrentCamera.CoordinateFrame.p).unit * 5
+gyro.cframe = CFrame.new(gyro.Parent.Position, Vector3.new(refpos.x, gyro.Parent.Position.y, refpos.z))
+wait(0.1)
+end
+end
+
+function onButton1Up(mouse)
+velocity.Parent = nil
+gyro.Parent = nil
+down = false
+end
+--To Change the key in those 2 lines, replace the "q" with your desired key
+function onSelected(mouse)
+mouse.KeyDown:connect(function(k) if k:lower()=="v"then onButton1Down(mouse)end end)
+mouse.KeyUp:connect(function(k) if k:lower()=="v"then onButton1Up(mouse)end end)
+end
+
+onSelected(game.Players.LocalPlayer:GetMouse())
+
+
+end
+        if cmd == "hl" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Level Hider";
+                Text = "Use Atack and Press N";
+            }) 
+            game:GetService("RunService").RenderStepped:Connect(function()
+                for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.Name:find("Lvl.") then
+                        v:Destroy();
+                    end;
+                end;
+            end);
+        end
+        if cmd == "sdoff" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Speed";
+                Text = "Disabled";
+            }) 
+            down = false
+velocity = Instance.new("BodyVelocity")
+velocity.maxForce = Vector3.new(10000000, 0, 10000000)
+---vv Use that to change the speed v
+local speed    = 0
+gyro           = Instance.new("BodyGyro")
+gyro.maxTorque = Vector3.new(10000000, 0, 10000000)
+
+local hum = game.Players.LocalPlayer.Character.Humanoid
+
+function onButton1Down(mouse)
+down = true
+velocity.Parent = game.Players.LocalPlayer.Character.UpperTorso
+velocity.velocity = (hum.MoveDirection) * speed
+gyro.Parent = game.Players.LocalPlayer.Character.UpperTorso
+while down do
+if not down then break end
+velocity.velocity = (hum.MoveDirection) * speed
+local refpos = gyro.Parent.Position + (gyro.Parent.Position - workspace.CurrentCamera.CoordinateFrame.p).unit * 5
+gyro.cframe = CFrame.new(gyro.Parent.Position, Vector3.new(refpos.x, gyro.Parent.Position.y, refpos.z))
+wait(0.1)
+end
+end
+
+function onButton1Up(mouse)
+velocity.Parent = nil
+gyro.Parent = nil
+down = false
+end
+--To Change the key in those 2 lines, replace the "q" with your desired key
+function onSelected(mouse)
+mouse.KeyDown:connect(function(k) if k:lower()=="v"then onButton1Down(mouse)end end)
+mouse.KeyUp:connect(function(k) if k:lower()=="v"then onButton1Up(mouse)end end)
+end
+
+onSelected(game.Players.LocalPlayer:GetMouse())
+end
+        if cmd == "glc" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Glich Activated";
+                Text = "Use Atack and Press N";
+            })  
+            local Player = game:GetService("Players").LocalPlayer
+            local Mouse = Player:GetMouse()
+
+            Mouse.KeyDown:connect(function(Key)
+                Key = Key:lower()
+                if Key == 'n' then
+                    workspace.Live:WaitForChild(game.Players.LocalPlayer.Name).HumanoidRootPart.VanishParticle:Destroy()
+                end
+            end)
+        end
+        if cmd == "hw" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Wing Hider";
+                Text = "Wings Removed";
+            });
+            (game:GetService("RunService")).RenderStepped:Connect(function()
+                if (game.Players.LocalPlayer.Character:FindFirstChild("RebirthWings")).Handle then
+                    (game.Players.LocalPlayer.Character:FindFirstChild("RebirthWings")).Handle:Destroy();
+                end;
+            end);
+        end
+        if cmd == "bgm" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Better God Mode";
+                Text = "Activated";
+            })
+            local plr = game.Players.LocalPlayer
+            game.Workspace.Live[plr.name].Parent = game.Workspace.Effects
+            wait()
+            local args1 = game:GetService("Workspace").FriendlyNPCs["Hair Stylist"]
+            game:GetService("Players").LocalPlayer.Backpack.ServerTraits.ChatStart:FireServer(args1)
+            wait(0.30)
+            local args = {
+                [1] = {
+                    [1] = "Yes",
+                },
+            }
+            game:GetService("Players").LocalPlayer.Backpack.ServerTraits.ChatAdvance:FireServer(unpack(args))
+
+            game:GetService("RunService").RenderStepped:connect(function()
+                game:GetService("Players").LocalPlayer.PlayerGui.Setup.Enabled = false
+            end)
+        end
+        if cmd == "aq" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Anti Queue Kick";
+                Text = "Activated";
+            })
+            game:service'RunService'.RenderStepped:connect(function()
+                pcall(function()
+                    game:GetService("Workspace").Wormhole:Destroy()
+                    game.Players.LocalPlayer.Character.Action:Destroy()
+                end)
+            end)
+        end
+        if cmd == "nbe" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "No Bean Efects";
+                Text = "Activated";
+            })
+            game:GetService("RunService").Stepped:Connect(function()
+                for i,v in pairs(game.Players.LocalPlayer.Character.HumanoidRootPart:GetChildren()) do 
+                    if v.Name:find("Eva") or v.Name:find("Inf") or v.Name:find("Critz") then
+                        v:Destroy()
+                    end;
+                end;
+            end)
+        end
+        if cmd == "nvc" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "No Vanish Slow";
+                Text = "Activated";
+            })
+            for i,v in pairs(getconstants(getsenv(game:GetService("Players").LocalPlayer.PlayerGui.LocalScript).step)) do
+                if i ~= 66 and i ~= 38 and i ~= 42 and i ~= 71 and type(v) == "number" then
+                    setconstant(getsenv(game:GetService("Players").LocalPlayer.PlayerGui.LocalScript).step,i,0)
+                end
+            end
+        end
+        if cmd == "hr" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Hard Reset";
+                Text = "Reset";
+            })
+            local Playe = game:GetService("Players").LocalPlayer
+            Playe.Character.Humanoid.Health = 0
+        end
+        if cmd == "hs" then
+            local pzath = game.Players.LocalPlayer.Backpack.ServerTraits.ChatAdvance
+            game.Players.LocalPlayer.Backpack.ServerTraits.ChatStart:FireServer(game.Workspace.FriendlyNPCs["Hair Stylist"])
+            wait(0.3)
+            pzath:FireServer({ [1] = "Yes" })
+        end    
+        if cmd == "rs" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insta Respawn";
+                Text = "Respawnning";
+            })
+            local pzath = game.Players.LocalPlayer.Backpack.ServerTraits.ChatAdvance
+            game.Players.LocalPlayer.Backpack.ServerTraits.ChatStart:FireServer(game.Workspace.FriendlyNPCs["Hair Stylist"])
+            wait(0.3)
+            pzath:FireServer({ [1] = "Yes" })
+            wait(0.3)
+            pzath:FireServer({ [1] = "k" })
+            wait()
+            game.Players.LocalPlayer.Backpack.HairScript.RemoteEvent:FireServer("woah")
+        end 
+        if cmd == "ns" then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "No Slow OP";
+                Text = "Activated";
+            })
+            while wait() do
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.Name == "Justice Combination" then
+                        local action = game.Players.LocalPlayer.Character:WaitForChild("Action")
+                        if action then wait() action:Destroy() end end
+                    if v.Name == "Action" then
+                        v:Destroy()
+                    end
+                    if v.Name == "Attacking" then
+                        v:Destroy()
+                    end
+                    if v.Name == "Using" then
+                        v:Destroy()
+                    end
+                    if v.Name == "hyper" then
+                        v:Destroy()
+                    end
+                    if v.Name == "Hyper" then
+                        v:Destroy()
+                    end
+                    if v.Name == "heavy" then
+                        v:Destroy()
+                    end
+                    if v.Name == "KiBlasted" then
+                        v:Destroy()
+                    end
+                    if v.Name == "Tele" then
+                        v:Destroy()
+                    end
+                    if v.Name == "tele" then
+                        v:Destroy()
+                    end
+                    if v.Name == "Killed" then
+                        v:Destroy()
+                    end
+                    if v.Name == "Slow" then
+                        v:Destroy()
+                    end
+                    if v.Name == "Block" and v.Value == true then
+                        v.Value = false
+                    end
+                end
+            end
+        end
+    end
+end)
+
+function GetPlayer(String)
+    local plr
+    local strl = String:lower()
+    for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+        if v.Name:lower():sub(1, #String) == String:lower() then
+            plr = v
+        end 
+    end
+    if String == "me" then
+        plr = game.Players.LocalPlayer
+    end
+    if String == "" or String == " " then
+        plr = nil
+    end
+    return plr
+    end
+    
